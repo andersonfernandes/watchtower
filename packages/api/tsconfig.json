@@ -6,7 +6,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "allowJs": true,
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "ESNext"],
     "baseUrl": "./src",
     "esModuleInterop": true,
     "paths": {
