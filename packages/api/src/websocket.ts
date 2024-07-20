@@ -1,9 +1,9 @@
 import { Express } from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
-import WebSocket from "ws";
+import { WebSocket } from "ws";
 
-export const initWebSocket = (app: Express) => {
+export const initWebSocketServer = (app: Express) => {
   const wsServer = new WebSocket.Server({ server: http.createServer(app) });
 
   wsServer.on("connection", (ws, req) => {
