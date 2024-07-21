@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import routes from "./routes";
-import swaggerOutput from "../swagger/swagger_output.json";
+import swaggerDocs from "./swagger/docs.json";
 import { initWebSocketServer } from "./websocket";
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api", routes);
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 initWebSocketServer(app);
 

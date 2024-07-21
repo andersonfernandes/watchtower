@@ -3,13 +3,12 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors",
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws",
     "start": "node dist/index.js",
     "db:migrate:up": "node-pg-migrate up --migrations-dir=db/migrations",
     "db:migrate:down": "node-pg-migrate down --migrations-dir=db/migrations",
     "db:migrate:create": "node-pg-migrate create --template-file-name=db/migration_template.sql --migrations-dir=db/migrations",
-    "swagger:generate": "tsx swagger/generate.ts",
-    "swagger:schemas:generate": "tsx swagger/schemas.ts"
+    "swagger:generate": "tsx src/docs.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

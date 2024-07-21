@@ -21,7 +21,7 @@
     "dist"
   ],
   "include": [
-    "src/**/*.ts", "swagger/swagger.ts",
+    "src/**/*.ts", "src/swagger/swagger.ts",
   ],
 
 }

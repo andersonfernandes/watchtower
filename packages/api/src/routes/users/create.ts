@@ -1,6 +1,6 @@
 import { CreateUserRequest } from "@/types/schemas";
 import { Response } from "express";
-import { RequestBody } from "..";
+import { RequestBody } from "@/routes";
 
 export function createUser(
   request: RequestBody<CreateUserRequest>,
