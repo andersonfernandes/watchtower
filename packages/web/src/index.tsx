@@ -1,13 +1,24 @@
-import React, { StrictMode } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Cameras from "./views/cameras";
+import Home from "./views/home";
 
-const App = () => {
-  return (
-    <StrictMode>
-      <h1>Home Guardian</h1>
-    </StrictMode>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/cameras",
+    element: <Cameras />,
+  },
+]);
 
 const app = document.querySelector("#app");
-if (app) createRoot(app).render(<App />);
+if (app)
+  createRoot(app).render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  );
