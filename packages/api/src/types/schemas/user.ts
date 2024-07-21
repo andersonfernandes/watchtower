@@ -3,3 +3,9 @@ export interface CreateUserRequest {
   username: string;
   password: string;
 }
+
+export interface CreateUserResponse {
+  id: string;
+  name: string;
+  username: string;
+}

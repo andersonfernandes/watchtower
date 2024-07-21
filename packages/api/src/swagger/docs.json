@@ -36,7 +36,14 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/schemas/CreateUserResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -67,6 +74,25 @@
       "required": [
         "name",
         "password",
+        "username"
+      ]
+    },
+    "CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
         "username"
       ]
     }

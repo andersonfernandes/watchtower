@@ -1,9 +1,7 @@
-import { Request, Router } from "express";
+import { Router } from "express";
 
 import { healthRouter } from "./health";
 import { usersRouter } from "./users";
-
-export type RequestBody<T> = Request<{}, {}, T>;
 
 const router = Router();
 

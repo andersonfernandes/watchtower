@@ -1,12 +1,21 @@
-import { CreateUserRequest } from "@/types/schemas";
-import { Response } from "express";
-import { RequestBody } from "@/routes";
+import { AppRequest, AppResponse } from "@/types/router";
+import { CreateUserRequest, CreateUserResponse } from "@/types/schemas";
 
 export function createUser(
-  request: RequestBody<CreateUserRequest>,
-  response: Response
+  request: AppRequest<CreateUserRequest>,
+  response: AppResponse<CreateUserResponse>
 ) {
-  //  #swagger.parameters['body'] = {in: "body", schema: { $ref: "#/schemas/CreateUserRequest" }}
+  /*  #swagger.parameters['body'] = {in: "body", schema: { $ref: "#/schemas/CreateUserRequest" }}
+      #swagger.responses[200] = {
+            content: {
+                "application/json": {
+                    schema:{
+                        $ref: "#/schemas/CreateUserResponse"
+                    }
+                }
+            }
+        }
+    */
 
-  response.status(200).json({});
+  response.status(200);
 }

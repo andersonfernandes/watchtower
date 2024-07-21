@@ -2,10 +2,10 @@ import fs from "fs";
 import path from "path";
 import swaggerAutogen from "swagger-autogen";
 import * as tjs from "typescript-json-schema";
-import { _schema } from "../../dist/_schema";
+import { _schema } from "./_schema";
 
 export const generateSchemas = () => {
-  console.info("Generating OpenAPI Schemas");
+  console.info("Generating Schemas");
 
   const settings = {
     required: true,
