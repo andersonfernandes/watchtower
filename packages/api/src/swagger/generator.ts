@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import swaggerAutogen from "swagger-autogen";
 import * as tjs from "typescript-json-schema";
-import { _schema } from "./_schema";
 
 export const generateSchemas = () => {
   console.info("Generating Schemas");
@@ -32,8 +31,9 @@ export const generateSchemas = () => {
   );
 };
 
-export const generateDocs = () => {
+export const generateDocs = async () => {
   console.info("Generating Swagger Docs");
+  const schema = await import("./_schema");
 
   const doc = {
     info: {
@@ -46,7 +46,7 @@ export const generateDocs = () => {
         description: "",
       },
     ],
-    schemas: _schema.definitions,
+    schemas: schema._schema.definitions,
     components: {
       securitySchemes: {
         bearerAuth: {

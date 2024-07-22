@@ -1,4 +1,6 @@
 import { generateDocs, generateSchemas } from "@/swagger/generator";
 
-generateSchemas();
-generateDocs();
+(async () => {
+  generateSchemas();
+  await generateDocs();
+})();
