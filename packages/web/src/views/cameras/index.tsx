@@ -26,7 +26,7 @@ export default function Cameras() {
 
   return (
     <>
-      <h1>Home Guardian - Cameras</h1>
+      <h1>House Watch - Cameras</h1>
 
       <main>
         <img

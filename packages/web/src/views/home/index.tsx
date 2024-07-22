@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <>
-      <h1>Home Guardian</h1>
+      <h1>House Watch</h1>
     </>
   );
 }

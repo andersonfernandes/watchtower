@@ -38,11 +38,11 @@ export const generateDocs = async () => {
   const doc = {
     info: {
       version: "v1.0.0",
-      title: "Home Guardian",
+      title: "House Watch",
     },
     servers: [
       {
-        url: "http://localhost:5000/api",
+        url: `${process.env.BASE_URL ?? "http://localhost:5000/api"}/api`,
         description: "",
       },
     ],
