@@ -1,7 +1,8 @@
+import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
 import { CreateUserRequest, CreateUserResponse } from "@/types/schemas";
 
-export function createUser(
+export async function createUser(
   request: AppRequest<CreateUserRequest>,
   response: AppResponse<CreateUserResponse>
 ) {
