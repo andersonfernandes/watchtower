@@ -42,7 +42,7 @@ export const generateDocs = async () => {
     },
     servers: [
       {
-        url: `${process.env.BASE_URL ?? "http://localhost:5000/api"}/api`,
+        url: `${process.env.BASE_URL ?? "http://localhost:5000"}/api`,
         description: "",
       },
     ],

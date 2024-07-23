@@ -4,7 +4,7 @@
   "module": "nodenext",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws",
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws --external:swagger-ui-express",
     "start": "node dist/index.js",
     "db:migrate:up": "node-pg-migrate up --migrations-dir=db/migrations",
     "db:migrate:down": "node-pg-migrate down --migrations-dir=db/migrations",

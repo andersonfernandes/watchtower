@@ -24,6 +24,9 @@
     },
     "/users/": {
       "post": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {

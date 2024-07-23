@@ -6,7 +6,8 @@ export async function createUser(
   request: AppRequest<CreateUserRequest>,
   response: AppResponse<CreateUserResponse>
 ) {
-  /*  #swagger.parameters['body'] = {in: "body", schema: { $ref: "#/schemas/CreateUserRequest" }}
+  /*  #swagger.tags = ['Users']
+      #swagger.parameters['body'] = {in: "body", schema: { $ref: "#/schemas/CreateUserRequest" }}
       #swagger.responses[200] = {
             content: {
                 "application/json": {
