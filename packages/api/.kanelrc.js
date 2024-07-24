@@ -12,7 +12,8 @@ module.exports = {
     "pg_catalog.jsonb": "any",
     "pg_catalog.numeric": "number",
   },
-  typeFilter: (type) => type.name !== "pgmigrations",
+  typeFilter: (type) =>
+    !["knex_migrations", "knex_migrations_lock"].includes(type.name),
   getMetadata: (details, generateFor, config) => {
     const metadata = defaultGetMetadata(details, generateFor, config);
     const singularName = pluralize.singular(metadata.name);
