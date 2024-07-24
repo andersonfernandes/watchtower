@@ -1,9 +1,9 @@
 import express from "express";
 
-const router = express.Router();
+const healthRouter = express.Router();
 
-router.get("/", (_, response) => {
+healthRouter.get("/", (_, response) => {
   response.status(200).json({});
 });
 
-export default router;
+export { healthRouter };

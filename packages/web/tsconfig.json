@@ -19,5 +19,6 @@
       "typeRoots": ["node_modules/@types"],
       "baseUrl": "."
   },
-  "include": ["src", "test"]
+  "include": ["src/**/*", "custom.d.ts"]
+
 }

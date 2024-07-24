@@ -1,17 +1,9 @@
-import cors from "cors";
-import express from "express";
-
-import routes from "./routes";
+import { api } from "./api";
 import { initWebSocket } from "./websocket";
 
-const app = express();
 const port = 5000;
+const server = api.listen(port, () =>
+  console.log(`Listening on http://0.0.0.0:${port}`)
+);
 
-app.use(cors());
-app.use(express.json());
-
-app.use("/api", routes);
-
-initWebSocket(app);
-
-app.listen(port, () => console.log(`Listening on http://0.0.0.0:${port}`));
+initWebSocket(server);

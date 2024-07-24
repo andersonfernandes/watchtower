@@ -1,9 +1,11 @@
-import express from "express";
+import { Router } from "express";
 
-import health from "./health";
+import { healthRouter } from "./health";
+import { usersRouter } from "./users";
 
-const router = express.Router();
+const router = Router();
 
-router.use("/health", health);
+router.use("/health", healthRouter);
+router.use("/users", usersRouter);
 
 export default router;
