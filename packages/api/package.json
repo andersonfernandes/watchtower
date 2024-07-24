@@ -9,7 +9,8 @@
     "db:migrate:up": "node-pg-migrate up --migrations-dir=db/migrations",
     "db:migrate:down": "node-pg-migrate down --migrations-dir=db/migrations",
     "db:migrate:create": "node-pg-migrate create --template-file-name=db/migration_template.sql --migrations-dir=db/migrations",
-    "swagger:generate": "tsx src/docs.ts"
+    "swagger:generate": "tsx src/docs.ts",
+    "kanel": "npx kanel"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -35,6 +36,8 @@
     "@types/swagger-ui-express": "^4.1.6",
     "@types/ws": "^8.5.11",
     "esbuild": "^0.23.0",
+    "kanel": "^3.9.1",
+    "pluralize": "^8.0.0",
     "tsx": "^4.16.2",
     "typescript": "^5.5.3"
   }

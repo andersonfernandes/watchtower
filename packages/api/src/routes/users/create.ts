@@ -1,4 +1,3 @@
-import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
 import { CreateUserRequest, CreateUserResponse } from "@/types/schemas";
 
