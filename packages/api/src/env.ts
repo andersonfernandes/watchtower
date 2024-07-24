@@ -4,7 +4,7 @@ const schema = z.object({
   DATABASE_URL: z
     .string()
     .url()
-    .default("postgres://postgres:postgres@localhost:5432/house_watch"),
+    .default("postgres://postgres:postgres@localhost:5432/watchtower"),
 });
 
 const setupEnv = () => {

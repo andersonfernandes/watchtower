@@ -3,7 +3,7 @@ const pluralize = require("pluralize");
 
 /** @type {import("kanel").Config} */
 module.exports = {
-  connection: "postgres://postgres:postgres@localhost:5432/house_watch",
+  connection: "postgres://postgres:postgres@localhost:5432/watchtower",
   outputPath: "./src/db/models",
   preDeleteOutputFolder: true,
   enumStyle: "type",

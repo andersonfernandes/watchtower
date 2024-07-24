@@ -13,7 +13,7 @@
     "react-use-websocket": "^4.8.1"
   },
   "devDependencies": {
-    "@house-watch/types": "^1.0.0",
+    "@watchtower/types": "^1.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

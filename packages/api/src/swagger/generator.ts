@@ -38,7 +38,7 @@ export const generateDocs = async () => {
   const doc = {
     info: {
       version: "v1.0.0",
-      title: "House Watch",
+      title: "Watchtower",
     },
     servers: [
       {
