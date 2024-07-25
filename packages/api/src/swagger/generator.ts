@@ -1,5 +1,5 @@
 import fs from "fs";
-import path from "path";
+import { resolve } from "path";
 import swaggerAutogen from "swagger-autogen";
 import * as tjs from "typescript-json-schema";
 
@@ -14,12 +14,9 @@ export const generateSchemas = () => {
     strictNullChecks: true,
   };
 
+  const tsConfigPath = resolve("./", `tsconfig.json`);
   const schemasPath = "src/types/schemas/index.ts";
-  const program = tjs.getProgramFromFiles(
-    [path.resolve(schemasPath)],
-    compilerOptions,
-    "./"
-  );
+  const program = tjs.programFromConfig(tsConfigPath, [schemasPath]);
 
   const schema = tjs.generateSchema(program, "*", settings);
   fs.writeFileSync(

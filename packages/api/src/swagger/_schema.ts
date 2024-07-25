@@ -2,9 +2,50 @@
 export const _schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "CreateUserRequest": {
+        "UserId": {
+            "description": "Identifier type for public.users",
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "__brand": {
+                            "type": "string",
+                            "const": "UsersId"
+                        }
+                    },
+                    "required": [
+                        "__brand"
+                    ]
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "User": {
+            "description": "Represents the table public.users",
             "type": "object",
             "properties": {
+                "id": {
+                    "description": "Identifier type for public.users",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "UsersId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
                 "name": {
                     "type": "string"
                 },
@@ -13,6 +54,67 @@ export const _schema = {
                 },
                 "password": {
                     "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "created_at",
+                "id",
+                "name",
+                "password",
+                "updated_at",
+                "username"
+            ]
+        },
+        "UsersInitializer": {
+            "description": "Represents the initializer for the table public.users",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Default value: gen_random_uuid()",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "UsersId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
                 }
             },
             "required": [
@@ -21,12 +123,78 @@ export const _schema = {
                 "username"
             ]
         },
-        "CreateUserResponse": {
+        "UsersMutator": {
+            "description": "Represents the mutator for the table public.users",
             "type": "object",
             "properties": {
                 "id": {
+                    "description": "Identifier type for public.users",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "UsersId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
                     "type": "string"
                 },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "UserLoginRequest": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "password",
+                "username"
+            ]
+        },
+        "UserLoginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "token"
+            ]
+        },
+        "CreateUserRequest": {
+            "type": "object",
+            "properties": {
                 "name": {
                     "type": "string"
                 },
@@ -35,8 +203,53 @@ export const _schema = {
                 }
             },
             "required": [
+                "name",
+                "username"
+            ]
+        },
+        "CreateUserResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.users",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "UsersId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "created_at",
                 "id",
                 "name",
+                "updated_at",
                 "username"
             ]
         }

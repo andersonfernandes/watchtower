@@ -1,11 +1,11 @@
-export interface CreateUserRequest {
-  name: string;
-  username: string;
-  password: string;
-}
+import User from "@/db/models/User";
 
-export interface CreateUserResponse {
-  id: string;
-  name: string;
-  username: string;
-}
+export type UserLoginRequest = Pick<User, "username" | "password">;
+
+export type UserLoginResponse = {
+  token: string;
+};
+
+export type CreateUserRequest = Pick<User, "name" | "username">;
+
+export type CreateUserResponse = Omit<User, "password">;
