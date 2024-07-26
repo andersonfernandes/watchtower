@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { areasRouter } from "./areas";
+import { camerasRouter } from "./cameras";
 import { healthRouter } from "./health";
 import { usersRouter } from "./users";
 
@@ -12,6 +13,12 @@ router.use(
   // #swagger.security = [{ "bearerAuth": [] }]
   "/areas",
   areasRouter
+);
+router.use(
+  // #swagger.tags = ['Cameras']
+  // #swagger.security = [{ "bearerAuth": [] }]
+  "/cameras",
+  camerasRouter
 );
 router.use("/users", usersRouter);
 

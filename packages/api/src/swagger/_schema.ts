@@ -198,6 +198,383 @@ export const _schema = {
                 "updated_at"
             ]
         },
+        "CameraStatus": {
+            "description": "Represents the enum public.camera_status",
+            "enum": [
+                "active",
+                "inactive",
+                "maintenance"
+            ],
+            "type": "string"
+        },
+        "CameraId": {
+            "description": "Identifier type for public.cameras",
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "__brand": {
+                            "type": "string",
+                            "const": "CamerasId"
+                        }
+                    },
+                    "required": [
+                        "__brand"
+                    ]
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "Camera": {
+            "description": "Represents the table public.cameras",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.cameras",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "CamerasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "local_address": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Represents the enum public.camera_status",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "maintenance"
+                    ],
+                    "type": "string"
+                },
+                "connected_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "area_id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "area_id",
+                "connected_at",
+                "created_at",
+                "id",
+                "local_address",
+                "name",
+                "status",
+                "token",
+                "updated_at"
+            ]
+        },
+        "CamerasInitializer": {
+            "description": "Represents the initializer for the table public.cameras",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Default value: gen_random_uuid()",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "CamerasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "local_address": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Default value: 'inactive'::camera_status",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "maintenance"
+                    ],
+                    "type": "string"
+                },
+                "connected_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "area_id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "area_id",
+                "name",
+                "token"
+            ]
+        },
+        "CamerasMutator": {
+            "description": "Represents the mutator for the table public.cameras",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.cameras",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "CamerasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "local_address": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Represents the enum public.camera_status",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "maintenance"
+                    ],
+                    "type": "string"
+                },
+                "connected_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "area_id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "CreateCameraRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "local_address": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "local_address",
+                "name"
+            ]
+        },
+        "CameraResponse": {
+            "description": "Represents the table public.cameras",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.cameras",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "CamerasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "local_address": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Represents the enum public.camera_status",
+                    "enum": [
+                        "active",
+                        "inactive",
+                        "maintenance"
+                    ],
+                    "type": "string"
+                },
+                "connected_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "area_id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "area_id",
+                "connected_at",
+                "created_at",
+                "id",
+                "local_address",
+                "name",
+                "status",
+                "token",
+                "updated_at"
+            ]
+        },
         "UserId": {
             "description": "Identifier type for public.users",
             "allOf": [
@@ -414,9 +791,6 @@ export const _schema = {
                 "name": {
                     "type": "string"
                 },
-                "username": {
-                    "type": "string"
-                },
                 "created_at": {
                     "type": "string",
                     "format": "date-time"
@@ -424,6 +798,9 @@ export const _schema = {
                 "updated_at": {
                     "type": "string",
                     "format": "date-time"
+                },
+                "username": {
+                    "type": "string"
                 }
             },
             "required": [
