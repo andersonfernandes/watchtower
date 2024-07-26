@@ -3,6 +3,7 @@
 
 import type { UserId } from './User';
 import type { AreaId } from './Area';
+import type { default as UserAreaRole } from './UserAreaRole';
 
 /** Identifier type for public.user_areas */
 export type UserAreaId = string & { __brand: 'UserAreasId' };
@@ -18,6 +19,8 @@ export default interface UserArea {
   created_at: Date;
 
   updated_at: Date;
+
+  role: UserAreaRole | null;
 }
 
 /** Represents the initializer for the table public.user_areas */
@@ -34,6 +37,9 @@ export interface UserAreasInitializer {
 
   /** Default value: CURRENT_TIMESTAMP */
   updated_at?: Date;
+
+  /** Default value: 'user'::user_area_role */
+  role?: UserAreaRole | null;
 }
 
 /** Represents the mutator for the table public.user_areas */
@@ -47,4 +53,6 @@ export interface UserAreasMutator {
   created_at?: Date;
 
   updated_at?: Date;
+
+  role?: UserAreaRole | null;
 }

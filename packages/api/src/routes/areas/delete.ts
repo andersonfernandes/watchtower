@@ -1,4 +1,6 @@
 import { db } from "@/db";
+import Area, { AreaId } from "@/db/models/Area";
+import UserAreaRole from "@/db/models/UserAreaRole";
 import { AppRequest, AppResponse } from "@/types/router";
 
 export async function deleteArea(
@@ -8,8 +10,8 @@ export async function deleteArea(
   /* #swagger.responses[204] = { description: 'No Content' } */
 
   try {
-    const area = await db("areas")
-      .select("areas.*")
+    const area: { id: AreaId; role: UserAreaRole } = await db("areas")
+      .select("areas.id", "user_areas.role")
       .innerJoin("user_areas", "areas.id", "user_areas.area_id")
       .where("areas.id", request.params.id)
       .where("user_areas.user_id", request.user.id)
@@ -21,7 +23,13 @@ export async function deleteArea(
         .json({ success: false, data: { errors: ["Not Found"] } });
     }
 
-    // TODO: Check if user is owner before delete
+    if (area.role !== "owner") {
+      return response.status(422).json({
+        success: false,
+        data: { errors: ["The user must be an owner to delete the area"] },
+      });
+    }
+
     await db("areas").delete().where("id", area.id);
 
     response.status(204).json();

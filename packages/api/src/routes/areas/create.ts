@@ -26,6 +26,7 @@ export async function createArea(
     await db("user_areas").insert({
       area_id: area.id,
       user_id: request.user.id,
+      role: "owner",
     });
 
     response.json({ success: true, data: area });
