@@ -22,25 +22,25 @@
         }
       }
     },
-    "/areas/": {
-      "get": {
+    "/areas/{id}": {
+      "delete": {
         "tags": [
           "Areas"
         ],
         "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/schemas/AreaResponse"
-                }
-              }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         },
         "security": [
@@ -48,7 +48,9 @@
             "bearerAuth": []
           }
         ]
-      },
+      }
+    },
+    "/areas/": {
       "post": {
         "tags": [
           "Areas"
@@ -89,6 +91,32 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Areas"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/schemas/AreaResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/users/login": {

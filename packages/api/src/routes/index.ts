@@ -7,7 +7,12 @@ import { usersRouter } from "./users";
 const router = Router();
 
 router.use("/health", healthRouter);
-router.use("/areas", areasRouter);
+router.use(
+  // #swagger.tags = ['Areas']
+  // #swagger.security = [{ "bearerAuth": [] }]
+  "/areas",
+  areasRouter
+);
 router.use("/users", usersRouter);
 
 export default router;

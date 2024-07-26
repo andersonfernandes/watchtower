@@ -14,6 +14,6 @@ export interface AppRequest<
   query: Q;
 }
 
-export interface AppResponse<ResBody> extends Response {
+export interface AppResponse<ResBody = {}> extends Response {
   json: Send<{ success: boolean; data: ResBody | { errors: string[] } }, this>;
 }

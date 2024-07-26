@@ -6,9 +6,7 @@ export async function listAreas(
   request: AppRequest,
   response: AppResponse<AreaResponse[]>
 ) {
-  /*  #swagger.tags = ['Areas']
-      #swagger.security = [{ "bearerAuth": [] }]
-      #swagger.responses[200] = {
+  /*  #swagger.responses[200] = {
             content: {
                 "application/json": {
                     schema:{
@@ -21,6 +19,7 @@ export async function listAreas(
 
   try {
     const areas = await db("areas")
+      .select("areas.*")
       .innerJoin("user_areas", "areas.id", "user_areas.area_id")
       .where("user_id", request.user.id);
 

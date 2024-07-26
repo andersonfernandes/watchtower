@@ -6,9 +6,7 @@ export async function createArea(
   request: AppRequest<CreateAreaRequest>,
   response: AppResponse<AreaResponse>
 ) {
-  /*  #swagger.tags = ['Areas']
-      #swagger.security = [{ "bearerAuth": [] }]
-      #swagger.requestBody = { required: true, schema: { $ref: "#/schemas/CreateAreaRequest" } }
+  /*  #swagger.requestBody = { required: true, schema: { $ref: "#/schemas/CreateAreaRequest" } }
       #swagger.responses[200] = {
             content: {
                 "application/json": {
