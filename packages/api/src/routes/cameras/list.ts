@@ -1,16 +1,16 @@
 import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
-import { CameraResponse } from "@/types/schemas/camera";
+import { CamerasResponse } from "@/types/schemas/camera";
 
 export async function listCameras(
   request: AppRequest,
-  response: AppResponse<CameraResponse[]>
+  response: AppResponse<CamerasResponse>
 ) {
   /*  #swagger.responses[200] = {
             content: {
                 "application/json": {
                     schema:{
-                        $ref: "#/schemas/CameraResponse"
+                        $ref: "#/schemas/CamerasResponse"
                     }
                 }
             }

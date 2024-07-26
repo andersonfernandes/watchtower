@@ -198,6 +198,52 @@ export const _schema = {
                 "updated_at"
             ]
         },
+        "AreasResponse": {
+            "type": "array",
+            "items": {
+                "description": "Represents the table public.areas",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Identifier type for public.areas",
+                        "allOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "__brand": {
+                                        "type": "string",
+                                        "const": "AreasId"
+                                    }
+                                },
+                                "required": [
+                                    "__brand"
+                                ]
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "created_at",
+                    "id",
+                    "name",
+                    "updated_at"
+                ]
+            }
+        },
         "CameraStatus": {
             "description": "Represents the enum public.camera_status",
             "enum": [
@@ -484,7 +530,6 @@ export const _schema = {
                 }
             },
             "required": [
-                "local_address",
                 "name"
             ]
         },
@@ -574,6 +619,96 @@ export const _schema = {
                 "token",
                 "updated_at"
             ]
+        },
+        "CamerasResponse": {
+            "type": "array",
+            "items": {
+                "description": "Represents the table public.cameras",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Identifier type for public.cameras",
+                        "allOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "__brand": {
+                                        "type": "string",
+                                        "const": "CamerasId"
+                                    }
+                                },
+                                "required": [
+                                    "__brand"
+                                ]
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "local_address": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "Represents the enum public.camera_status",
+                        "enum": [
+                            "active",
+                            "inactive",
+                            "maintenance"
+                        ],
+                        "type": "string"
+                    },
+                    "connected_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "area_id": {
+                        "description": "Identifier type for public.areas",
+                        "allOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "__brand": {
+                                        "type": "string",
+                                        "const": "AreasId"
+                                    }
+                                },
+                                "required": [
+                                    "__brand"
+                                ]
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "area_id",
+                    "connected_at",
+                    "created_at",
+                    "id",
+                    "local_address",
+                    "name",
+                    "status",
+                    "token",
+                    "updated_at"
+                ]
+            }
         },
         "UserId": {
             "description": "Identifier type for public.users",
@@ -791,6 +926,9 @@ export const _schema = {
                 "name": {
                     "type": "string"
                 },
+                "username": {
+                    "type": "string"
+                },
                 "created_at": {
                     "type": "string",
                     "format": "date-time"
@@ -798,9 +936,6 @@ export const _schema = {
                 "updated_at": {
                     "type": "string",
                     "format": "date-time"
-                },
-                "username": {
-                    "type": "string"
                 }
             },
             "required": [

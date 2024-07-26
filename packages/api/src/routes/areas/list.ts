@@ -1,16 +1,16 @@
 import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
-import { AreaResponse } from "@/types/schemas";
+import { AreasResponse } from "@/types/schemas";
 
 export async function listAreas(
   request: AppRequest,
-  response: AppResponse<AreaResponse[]>
+  response: AppResponse<AreasResponse[]>
 ) {
   /*  #swagger.responses[200] = {
             content: {
                 "application/json": {
                     schema:{
-                        $ref: "#/schemas/AreaResponse"
+                        $ref: "#/schemas/AreasResponse"
                     }
                 }
             }
