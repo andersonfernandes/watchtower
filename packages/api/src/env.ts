@@ -5,7 +5,7 @@ const schema = z.object({
     .string()
     .url()
     .default("postgres://postgres:postgres@localhost:5432/watchtower"),
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z.string().min(1),
 });
 
 const setupEnv = () => {

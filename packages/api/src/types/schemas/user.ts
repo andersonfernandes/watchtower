@@ -6,6 +6,6 @@ export type UserLoginResponse = {
   token: string;
 };
 
-export type CreateUserRequest = Pick<User, "name" | "username">;
+export type UserResponse = Omit<User, "password">;
 
-export type CreateUserResponse = Omit<User, "password">;
+export type UserJWTPayload = { userId: string };
