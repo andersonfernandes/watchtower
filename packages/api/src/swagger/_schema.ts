@@ -2,6 +2,202 @@
 export const _schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
+        "AreaId": {
+            "description": "Identifier type for public.areas",
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "__brand": {
+                            "type": "string",
+                            "const": "AreasId"
+                        }
+                    },
+                    "required": [
+                        "__brand"
+                    ]
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "Area": {
+            "description": "Represents the table public.areas",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+            ]
+        },
+        "AreasInitializer": {
+            "description": "Represents the initializer for the table public.areas",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Default value: gen_random_uuid()",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "Default value: CURRENT_TIMESTAMP",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "AreasMutator": {
+            "description": "Represents the mutator for the table public.areas",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "CreateAreaRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "AreaResponse": {
+            "description": "Represents the table public.areas",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+            ]
+        },
         "UserId": {
             "description": "Identifier type for public.users",
             "allOf": [
@@ -192,22 +388,7 @@ export const _schema = {
                 "token"
             ]
         },
-        "CreateUserRequest": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "name",
-                "username"
-            ]
-        },
-        "CreateUserResponse": {
+        "UserResponse": {
             "type": "object",
             "properties": {
                 "id": {
@@ -251,6 +432,17 @@ export const _schema = {
                 "name",
                 "updated_at",
                 "username"
+            ]
+        },
+        "UserJWTPayload": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "userId"
             ]
         }
     }
