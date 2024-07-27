@@ -21,7 +21,7 @@
     "dist"
   ],
   "include": [
-    "src/**/*.ts", "src/swagger/swagger.ts", "src/db/knex-tables.ts",
+    "src/**/*.ts",
   ],
 
 }

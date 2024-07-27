@@ -25,7 +25,7 @@ export const generateSchemas = () => {
   );
 };
 
-export const generateDocs = async () => {
+export const generateSwagger = async () => {
   console.info("Generating Swagger Docs");
   const schema = await import("./_schema");
 
@@ -55,4 +55,9 @@ export const generateDocs = async () => {
   const endpointsFiles = ["src/routes/index.ts"];
 
   swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);
+};
+
+export const generateDocs = async () => {
+  generateSchemas();
+  await generateSwagger();
 };

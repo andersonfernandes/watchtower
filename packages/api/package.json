@@ -3,13 +3,12 @@
   "main": "src/index.ts",
   "module": "nodenext",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --ignore src/swagger/_schema.ts src/index.ts",
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws --external:knex --external:bcrypt --external:swagger-ui-express",
     "start": "node dist/index.js",
     "db:seed": "tsx src/db/seed.ts",
     "knex": "knex",
-    "kanel": "npx kanel",
-    "swagger:generate": "tsx src/docs.ts"
+    "kanel": "npx kanel"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

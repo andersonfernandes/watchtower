@@ -7,7 +7,7 @@ export async function deleteArea(
   request: AppRequest<{}, { id: string }>,
   response: AppResponse
 ) {
-  /* #swagger.responses[204] = { description: 'No Content' } */
+  // #swagger.responses[204] = { description: 'No Content' }
 
   try {
     const area: { id: AreaId; role: UserAreaRole } = await db("areas")
