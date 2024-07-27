@@ -4,7 +4,7 @@
   "module": "nodenext",
   "scripts": {
     "dev": "tsx watch --ignore src/swagger/_schema.ts src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws --external:knex --external:bcrypt --external:swagger-ui-express",
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:express --external:cors --external:ws --external:knex --external:bcrypt --external:swagger-ui-express --external:typescript-json-schema",
     "start": "node dist/index.js",
     "db:seed": "tsx src/db/seed.ts",
     "knex": "knex",

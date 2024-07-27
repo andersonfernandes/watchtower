@@ -1,36 +1,29 @@
 import { db } from "@/db";
-import { AreaId } from "@/db/models/Area";
-import UserAreaRole from "@/db/models/UserAreaRole";
+import { CameraId } from "@/db/models/Camera";
 import { AppRequest, AppResponse } from "@/types/router";
 
-export async function deleteArea(
+export async function deleteCamera(
   request: AppRequest<{}, { id: string }>,
   response: AppResponse
 ) {
   // #swagger.responses[204] = { description: 'No Content' }
 
   try {
-    const area: { id: AreaId; role: UserAreaRole } = await db("areas")
-      .select("areas.id", "user_areas.role")
+    const camera: { id: CameraId } = await db("cameras")
+      .select("cameras.id")
+      .innerJoin("areas", "areas.id", "cameras.area_id")
       .innerJoin("user_areas", "areas.id", "user_areas.area_id")
-      .where("areas.id", request.params.id)
+      .where("cameras.id", request.params.id)
       .where("user_areas.user_id", request.user.id)
       .first();
 
-    if (!area) {
+    if (!camera) {
       return response
         .status(404)
         .json({ success: false, data: { errors: ["Not Found"] } });
     }
 
-    if (area.role !== "owner") {
-      return response.status(422).json({
-        success: false,
-        data: { errors: ["The user must be an owner to delete the area"] },
-      });
-    }
-
-    await db("areas").delete().where("id", area.id);
+    await db("cameras").delete().where("id", camera.id);
 
     response.status(204).json();
   } catch (err) {
