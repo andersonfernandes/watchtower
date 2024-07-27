@@ -145,6 +145,47 @@
             "bearerAuth": []
           }
         ]
+      },
+      "post": {
+        "tags": [
+          "Cameras"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/schemas/CameraResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/schemas/CreateCameraRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/schemas/CreateCameraRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/users/login": {
@@ -635,8 +676,7 @@
       },
       "required": [
         "area_id",
-        "name",
-        "token"
+        "name"
       ]
     },
     "CamerasMutator": {
@@ -723,9 +763,31 @@
         },
         "local_address": {
           "type": "string"
+        },
+        "area_id": {
+          "description": "Identifier type for public.areas",
+          "allOf": [
+            {
+              "type": "object",
+              "properties": {
+                "__brand": {
+                  "type": "string",
+                  "const": "AreasId"
+                }
+              },
+              "required": [
+                "__brand"
+              ]
+            },
+            {
+              "type": "string"
+            }
+          ]
         }
       },
       "required": [
+        "area_id",
+        "local_address",
         "name"
       ]
     },
@@ -1122,9 +1184,6 @@
         "name": {
           "type": "string"
         },
-        "username": {
-          "type": "string"
-        },
         "created_at": {
           "type": "string",
           "format": "date-time"
@@ -1132,6 +1191,9 @@
         "updated_at": {
           "type": "string",
           "format": "date-time"
+        },
+        "username": {
+          "type": "string"
         }
       },
       "required": [

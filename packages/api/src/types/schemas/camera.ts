@@ -1,6 +1,9 @@
 import Camera from "@/db/models/Camera";
 
-export type CreateCameraRequest = { name: string; local_address?: string };
+export type CreateCameraRequest = Pick<
+  Camera,
+  "name" | "local_address" | "area_id"
+>;
 
 export type CameraResponse = Camera;
 

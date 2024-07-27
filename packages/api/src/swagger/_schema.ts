@@ -439,8 +439,7 @@ export const _schema = {
             },
             "required": [
                 "area_id",
-                "name",
-                "token"
+                "name"
             ]
         },
         "CamerasMutator": {
@@ -527,9 +526,31 @@ export const _schema = {
                 },
                 "local_address": {
                     "type": "string"
+                },
+                "area_id": {
+                    "description": "Identifier type for public.areas",
+                    "allOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "__brand": {
+                                    "type": "string",
+                                    "const": "AreasId"
+                                }
+                            },
+                            "required": [
+                                "__brand"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 }
             },
             "required": [
+                "area_id",
+                "local_address",
                 "name"
             ]
         },
@@ -926,9 +947,6 @@ export const _schema = {
                 "name": {
                     "type": "string"
                 },
-                "username": {
-                    "type": "string"
-                },
                 "created_at": {
                     "type": "string",
                     "format": "date-time"
@@ -936,6 +954,9 @@ export const _schema = {
                 "updated_at": {
                     "type": "string",
                     "format": "date-time"
+                },
+                "username": {
+                    "type": "string"
                 }
             },
             "required": [

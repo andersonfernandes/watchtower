@@ -13,7 +13,7 @@ export default interface Camera {
 
   name: string;
 
-  token: string;
+  token: string | null;
 
   local_address: string | null;
 
@@ -35,7 +35,7 @@ export interface CamerasInitializer {
 
   name: string;
 
-  token: string;
+  token?: string | null;
 
   local_address?: string | null;
 
@@ -59,7 +59,7 @@ export interface CamerasMutator {
 
   name?: string;
 
-  token?: string;
+  token?: string | null;
 
   local_address?: string | null;
 

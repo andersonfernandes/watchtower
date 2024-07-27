@@ -3,7 +3,7 @@ import { env } from "@/env";
 import { AppRequest, AppResponse } from "@/types/router";
 import { UserLoginRequest, UserLoginResponse } from "@/types/schemas";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 
 export async function userLogin(
   request: AppRequest<UserLoginRequest>,
@@ -40,7 +40,7 @@ export async function userLogin(
       return response.status(401).json(errorResponse);
     }
 
-    const token = jwt.sign({ userId: user.id }, env.JWT_SECRET, {
+    const token = sign({ userId: user.id }, env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
