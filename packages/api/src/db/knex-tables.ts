@@ -5,6 +5,10 @@ import type {
   AreasMutator,
 } from "./models/Area";
 import Camera, { CamerasInitializer, CamerasMutator } from "./models/Camera";
+import CameraLog, {
+  CameraLogsInitializer,
+  CameraLogsMutator,
+} from "./models/CameraLog";
 import type {
   default as User,
   UsersInitializer,
@@ -29,6 +33,11 @@ declare module "knex/types/tables" {
       Camera,
       CamerasInitializer,
       CamerasMutator
+    >;
+    camera_logs: Knex.CompositeTableType<
+      CameraLog,
+      CameraLogsInitializer,
+      CameraLogsMutator
     >;
   }
 }
