@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { CameraId } from "@/db/models/Camera";
 import { AppRequest, AppResponse } from "@/types/router";
+import { logger } from "@/utils/logger";
 
 export async function deleteCamera(
   request: AppRequest<{}, { id: string }>,
@@ -27,7 +28,7 @@ export async function deleteCamera(
 
     response.status(204).json();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

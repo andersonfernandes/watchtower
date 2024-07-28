@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { env } from "@/env";
 import { AppRequest, AppResponse } from "@/types/router";
 import { CameraResponse, CreateCameraRequest } from "@/types/schemas";
+import { logger } from "@/utils/logger";
 import { sign } from "jsonwebtoken";
 
 export async function createCamera(
@@ -38,7 +39,7 @@ export async function createCamera(
 
     response.json({ success: true, data: camera });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

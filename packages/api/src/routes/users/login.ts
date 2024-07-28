@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { env } from "@/env";
 import { AppRequest, AppResponse } from "@/types/router";
 import { UserLoginRequest, UserLoginResponse } from "@/types/schemas";
+import { logger } from "@/utils/logger";
 import { omit } from "@/utils/object";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -50,7 +51,7 @@ export async function userLogin(
       data: { token, user: omit(user, "password") },
     });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { AreaId } from "@/db/models/Area";
 import UserAreaRole from "@/db/models/UserAreaRole";
 import { AppRequest, AppResponse } from "@/types/router";
+import { logger } from "@/utils/logger";
 
 export async function deleteArea(
   request: AppRequest<{}, { id: string }>,
@@ -34,7 +35,7 @@ export async function deleteArea(
 
     response.status(204).json();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

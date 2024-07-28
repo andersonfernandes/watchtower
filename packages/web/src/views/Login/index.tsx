@@ -28,7 +28,7 @@ export default function Login() {
       })
       .then((response) => {
         const { data: responseData } = response;
-        console.log(response);
+
         if (response.status === 200 && responseData.success) {
           signIn({
             auth: {
@@ -38,6 +38,8 @@ export default function Login() {
             userState: responseData.data.user,
             // refresh: response.data.refreshToken,
           });
+
+          navigate("/");
         }
       });
   };

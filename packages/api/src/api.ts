@@ -5,9 +5,11 @@ import swaggerUi from "swagger-ui-express";
 import { requireAuth } from "./middlewares/requireAuth";
 import routes from "./routes";
 import swaggerDocs from "./swagger/docs.json";
+import { httpLogger } from "./utils/logger";
 
 const api = express();
 
+api.use(httpLogger);
 api.use(cors());
 api.use(bodyParser.json());
 api.use(requireAuth);

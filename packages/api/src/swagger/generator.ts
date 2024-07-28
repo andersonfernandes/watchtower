@@ -1,10 +1,11 @@
+import { logger } from "@/utils/logger";
 import fs from "fs";
 import { resolve } from "path";
 import swaggerAutogen from "swagger-autogen";
 import { generateSchema, programFromConfig } from "typescript-json-schema";
 
 export const generateSchemas = () => {
-  console.info("Generating Schemas");
+  logger.info("Generating Schemas");
 
   const settings = {
     required: true,
@@ -26,7 +27,7 @@ export const generateSchemas = () => {
 };
 
 export const generateSwagger = async () => {
-  console.info("Generating Swagger Docs");
+  logger.info("Generating Swagger Docs");
   const schema = await import("./_schema");
 
   const doc = {

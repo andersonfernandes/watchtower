@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
 import { AreasResponse } from "@/types/schemas";
+import { logger } from "@/utils/logger";
 
 export async function listAreas(
   request: AppRequest,
@@ -25,7 +26,7 @@ export async function listAreas(
 
     response.json({ success: true, data: areas });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

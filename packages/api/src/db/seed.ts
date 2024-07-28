@@ -1,6 +1,7 @@
 import { db } from "@/db";
-import crypto from "crypto";
+import { logger } from "@/utils/logger";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 (async () => {
   const rawPassword = crypto.randomBytes(5).toString("hex");
@@ -19,6 +20,6 @@ import bcrypt from "bcrypt";
     process.exit(0);
   })
   .catch((e) => {
-    console.error("Could not seed database", e);
+    logger.error("Could not seed database", e);
     process.exit(1);
   });

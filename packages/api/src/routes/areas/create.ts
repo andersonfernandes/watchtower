@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
 import { AreaResponse, CreateAreaRequest } from "@/types/schemas";
+import { logger } from "@/utils/logger";
 
 export async function createArea(
   request: AppRequest<CreateAreaRequest>,
@@ -31,7 +32,7 @@ export async function createArea(
 
     response.json({ success: true, data: area });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });

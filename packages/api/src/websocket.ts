@@ -3,6 +3,7 @@ import { verify } from "jsonwebtoken";
 import WebSocket from "ws";
 import { db } from "./db";
 import { env } from "./env";
+import { logger } from "./utils/logger";
 
 export const initWebSocket = (server: Server) => {
   const wsServer = new WebSocket.Server({ server });
@@ -13,7 +14,7 @@ export const initWebSocket = (server: Server) => {
     const client = url.searchParams.get("client");
 
     if (!["camera", "viewer"].includes(client)) {
-      console.error("Invalid client identifier");
+      logger.error("Invalid client identifier");
       return ws.close();
     }
 
@@ -24,7 +25,7 @@ export const initWebSocket = (server: Server) => {
       const camera = await db("cameras").where("id", cameraId).first();
 
       if (!camera) {
-        console.error("Invalid token. CameraId not found!");
+        logger.error("Invalid token. CameraId not found!");
         return ws.close();
       }
 
@@ -60,10 +61,10 @@ export const initWebSocket = (server: Server) => {
       });
 
       ws.on("error", (err) => {
-        console.error(`WebSocket Error: ${err.message}`);
+        logger.error(`WebSocket Error: ${err.message}`);
       });
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       ws.close;
     }
   });

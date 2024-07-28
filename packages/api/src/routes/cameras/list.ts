@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { AppRequest, AppResponse } from "@/types/router";
 import { CamerasResponse } from "@/types/schemas/camera";
+import { logger } from "@/utils/logger";
 
 export async function listCameras(
   request: AppRequest,
@@ -26,7 +27,7 @@ export async function listCameras(
 
     response.json({ success: true, data: cameras });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     response
       .status(500)
       .json({ success: false, data: { errors: ["Internal Server Error"] } });
