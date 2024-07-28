@@ -1,24 +1,22 @@
 import { StrictMode } from "react";
+import AuthProvider from "react-auth-kit/AuthProvider";
+import createStore from "react-auth-kit/createStore";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Cameras from "./views/cameras";
-import Home from "./views/home";
+import Router from "./router";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/cameras",
-    element: <Cameras />,
-  },
-]);
+const store = createStore({
+  authName: "_auth",
+  authType: "cookie",
+  cookieDomain: window.location.hostname,
+  cookieSecure: window.location.protocol === "https:",
+});
 
 const app = document.querySelector("#app");
 if (app)
   createRoot(app).render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider store={store}>
+        <Router />
+      </AuthProvider>
     </StrictMode>
   );

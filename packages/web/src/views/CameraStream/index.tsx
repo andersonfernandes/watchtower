@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import useWebSocket from "react-use-websocket";
 
-export default function Cameras() {
+export default function CameraStream() {
   const videoRef = useRef<HTMLImageElement>(null);
 
   const { getWebSocket } = useWebSocket(

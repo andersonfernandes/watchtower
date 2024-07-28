@@ -3,6 +3,7 @@
       "noEmit": true,
       "strict": true,
       "target": "ESNext",
+      "module": "ESNext",
       "lib": ["ESNext", "DOM", "DOM.Iterable"],
       "allowJs": true,
       "jsx": "preserve",
@@ -14,11 +15,13 @@
       "verbatimModuleSyntax": true,
       "paths": {
           "test/*": ["test/*"],
-          "~/*": ["src/*"]
+          "@/*": [
+            "./src/*"
+          ]
       },
       "typeRoots": ["node_modules/@types"],
       "baseUrl": "."
   },
-  "include": ["src/**/*", "custom.d.ts"]
+  "include": ["src/**/*"]
 
 }

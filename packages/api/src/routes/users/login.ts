@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { env } from "@/env";
 import { AppRequest, AppResponse } from "@/types/router";
 import { UserLoginRequest, UserLoginResponse } from "@/types/schemas";
+import { omit } from "@/utils/object";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 
@@ -25,7 +26,7 @@ export async function userLogin(
   const { username, password } = request.body;
 
   try {
-    const user = await db("users").where({ username }).first();
+    const user = await db("users").where("username", username).first();
 
     const errorResponse = {
       success: false,
@@ -44,7 +45,10 @@ export async function userLogin(
       expiresIn: "24h",
     });
 
-    response.json({ success: true, data: { token } });
+    response.json({
+      success: true,
+      data: { token, user: omit(user, "password") },
+    });
   } catch (err) {
     console.error(err);
     response

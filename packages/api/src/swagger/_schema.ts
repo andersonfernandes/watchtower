@@ -895,32 +895,6 @@ export const _schema = {
                 }
             }
         },
-        "UserLoginRequest": {
-            "type": "object",
-            "properties": {
-                "username": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "password",
-                "username"
-            ]
-        },
-        "UserLoginResponse": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "token"
-            ]
-        },
         "UserResponse": {
             "type": "object",
             "properties": {
@@ -965,6 +939,79 @@ export const _schema = {
                 "name",
                 "updated_at",
                 "username"
+            ]
+        },
+        "UserLoginRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "password",
+                "username"
+            ]
+        },
+        "UserLoginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "description": "Identifier type for public.users",
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "__brand": {
+                                            "type": "string",
+                                            "const": "UsersId"
+                                        }
+                                    },
+                                    "required": [
+                                        "__brand"
+                                    ]
+                                },
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "created_at",
+                        "id",
+                        "name",
+                        "updated_at",
+                        "username"
+                    ]
+                }
+            },
+            "required": [
+                "token",
+                "user"
             ]
         },
         "UserJWTPayload": {
