@@ -7,8 +7,12 @@
   },
   "servers": [
     {
+      "url": "https://wt-api.andersonfernandes.dev/api",
+      "description": "Production"
+    },
+    {
       "url": "http://localhost:5000/api",
-      "description": ""
+      "description": "Local"
     }
   ],
   "paths": {

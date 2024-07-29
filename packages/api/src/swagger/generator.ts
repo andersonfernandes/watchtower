@@ -37,8 +37,12 @@ export const generateSwagger = async () => {
     },
     servers: [
       {
-        url: `${process.env.BASE_URL ?? "http://localhost:5000"}/api`,
-        description: "",
+        url: "https://wt-api.andersonfernandes.dev/api",
+        description: "Production",
+      },
+      {
+        url: "http://localhost:5000/api",
+        description: "Local",
       },
     ],
     schemas: schema._schema.definitions,
