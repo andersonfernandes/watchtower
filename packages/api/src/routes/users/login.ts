@@ -1,7 +1,11 @@
 import { db } from "@/db";
 import { env } from "@/env";
 import { AppRequest, AppResponse } from "@/types/router";
-import { UserLoginRequest, UserLoginResponse } from "@/types/schemas";
+import {
+  ErrorResponse,
+  UserLoginRequest,
+  UserLoginResponse,
+} from "@/types/schemas";
 import { logger } from "@/utils/logger";
 import { omit } from "@/utils/object";
 import bcrypt from "bcrypt";
@@ -29,7 +33,7 @@ export async function userLogin(
   try {
     const user = await db("users").where("username", username).first();
 
-    const errorResponse = {
+    const errorResponse: ErrorResponse = {
       success: false,
       data: { errors: ["Invalid username or password"] },
     };

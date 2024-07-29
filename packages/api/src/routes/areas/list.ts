@@ -5,7 +5,7 @@ import { logger } from "@/utils/logger";
 
 export async function listAreas(
   request: AppRequest,
-  response: AppResponse<AreasResponse[]>
+  response: AppResponse<AreasResponse>
 ) {
   /*  #swagger.responses[200] = {
             content: {

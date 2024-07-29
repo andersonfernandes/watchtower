@@ -144,6 +144,49 @@ export const _schema = {
                 }
             }
         },
+        "SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "const": true
+                },
+                "data": {
+                    "type": "object"
+                }
+            },
+            "required": [
+                "data",
+                "success"
+            ]
+        },
+        "ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "const": false
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "errors": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": [
+                        "errors"
+                    ]
+                }
+            },
+            "required": [
+                "data",
+                "success"
+            ]
+        },
         "CreateAreaRequest": {
             "type": "object",
             "properties": {
@@ -156,93 +199,119 @@ export const _schema = {
             ]
         },
         "AreaResponse": {
-            "description": "Represents the table public.areas",
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "Identifier type for public.areas",
-                    "allOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "__brand": {
-                                    "type": "string",
-                                    "const": "AreasId"
+                "success": {
+                    "type": "boolean",
+                    "const": true
+                },
+                "data": {
+                    "description": "Represents the table public.areas",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "description": "Identifier type for public.areas",
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "__brand": {
+                                            "type": "string",
+                                            "const": "AreasId"
+                                        }
+                                    },
+                                    "required": [
+                                        "__brand"
+                                    ]
+                                },
+                                {
+                                    "type": "string"
                                 }
-                            },
-                            "required": [
-                                "__brand"
                             ]
                         },
-                        {
+                        "name": {
                             "type": "string"
+                        },
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
                         }
+                    },
+                    "required": [
+                        "created_at",
+                        "id",
+                        "name",
+                        "updated_at"
                     ]
-                },
-                "name": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
                 }
             },
             "required": [
-                "created_at",
-                "id",
-                "name",
-                "updated_at"
+                "data",
+                "success"
             ]
         },
         "AreasResponse": {
-            "type": "array",
-            "items": {
-                "description": "Represents the table public.areas",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Identifier type for public.areas",
-                        "allOf": [
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "__brand": {
-                                        "type": "string",
-                                        "const": "AreasId"
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "const": true
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "description": "Represents the table public.areas",
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "Identifier type for public.areas",
+                                "allOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "__brand": {
+                                                "type": "string",
+                                                "const": "AreasId"
+                                            }
+                                        },
+                                        "required": [
+                                            "__brand"
+                                        ]
+                                    },
+                                    {
+                                        "type": "string"
                                     }
-                                },
-                                "required": [
-                                    "__brand"
                                 ]
                             },
-                            {
+                            "name": {
                                 "type": "string"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
                             }
+                        },
+                        "required": [
+                            "created_at",
+                            "id",
+                            "name",
+                            "updated_at"
                         ]
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time"
                     }
-                },
-                "required": [
-                    "created_at",
-                    "id",
-                    "name",
-                    "updated_at"
-                ]
-            }
+                }
+            },
+            "required": [
+                "data",
+                "success"
+            ]
         },
         "CameraStatus": {
             "description": "Represents the enum public.camera_status",
@@ -555,181 +624,207 @@ export const _schema = {
             ]
         },
         "CameraResponse": {
-            "description": "Represents the table public.cameras",
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "Identifier type for public.cameras",
-                    "allOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "__brand": {
-                                    "type": "string",
-                                    "const": "CamerasId"
+                "success": {
+                    "type": "boolean",
+                    "const": true
+                },
+                "data": {
+                    "description": "Represents the table public.cameras",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "description": "Identifier type for public.cameras",
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "__brand": {
+                                            "type": "string",
+                                            "const": "CamerasId"
+                                        }
+                                    },
+                                    "required": [
+                                        "__brand"
+                                    ]
+                                },
+                                {
+                                    "type": "string"
                                 }
-                            },
-                            "required": [
-                                "__brand"
                             ]
                         },
-                        {
+                        "name": {
                             "type": "string"
-                        }
-                    ]
-                },
-                "name": {
-                    "type": "string"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "local_address": {
-                    "type": "string"
-                },
-                "status": {
-                    "description": "Represents the enum public.camera_status",
-                    "enum": [
-                        "active",
-                        "inactive",
-                        "maintenance"
-                    ],
-                    "type": "string"
-                },
-                "connected_at": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "area_id": {
-                    "description": "Identifier type for public.areas",
-                    "allOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "__brand": {
-                                    "type": "string",
-                                    "const": "AreasId"
+                        },
+                        "token": {
+                            "type": "string"
+                        },
+                        "local_address": {
+                            "type": "string"
+                        },
+                        "status": {
+                            "description": "Represents the enum public.camera_status",
+                            "enum": [
+                                "active",
+                                "inactive",
+                                "maintenance"
+                            ],
+                            "type": "string"
+                        },
+                        "connected_at": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "area_id": {
+                            "description": "Identifier type for public.areas",
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "__brand": {
+                                            "type": "string",
+                                            "const": "AreasId"
+                                        }
+                                    },
+                                    "required": [
+                                        "__brand"
+                                    ]
+                                },
+                                {
+                                    "type": "string"
                                 }
-                            },
-                            "required": [
-                                "__brand"
                             ]
                         },
-                        {
-                            "type": "string"
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
                         }
+                    },
+                    "required": [
+                        "area_id",
+                        "connected_at",
+                        "created_at",
+                        "id",
+                        "local_address",
+                        "name",
+                        "status",
+                        "token",
+                        "updated_at"
                     ]
-                },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
                 }
             },
             "required": [
-                "area_id",
-                "connected_at",
-                "created_at",
-                "id",
-                "local_address",
-                "name",
-                "status",
-                "token",
-                "updated_at"
+                "data",
+                "success"
             ]
         },
         "CamerasResponse": {
-            "type": "array",
-            "items": {
-                "description": "Represents the table public.cameras",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Identifier type for public.cameras",
-                        "allOf": [
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "__brand": {
-                                        "type": "string",
-                                        "const": "CamerasId"
-                                    }
-                                },
-                                "required": [
-                                    "__brand"
-                                ]
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "token": {
-                        "type": "string"
-                    },
-                    "local_address": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "description": "Represents the enum public.camera_status",
-                        "enum": [
-                            "active",
-                            "inactive",
-                            "maintenance"
-                        ],
-                        "type": "string"
-                    },
-                    "connected_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "area_id": {
-                        "description": "Identifier type for public.areas",
-                        "allOf": [
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "__brand": {
-                                        "type": "string",
-                                        "const": "AreasId"
-                                    }
-                                },
-                                "required": [
-                                    "__brand"
-                                ]
-                            },
-                            {
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    }
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "const": true
                 },
-                "required": [
-                    "area_id",
-                    "connected_at",
-                    "created_at",
-                    "id",
-                    "local_address",
-                    "name",
-                    "status",
-                    "token",
-                    "updated_at"
-                ]
-            }
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "description": "Represents the table public.cameras",
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "Identifier type for public.cameras",
+                                "allOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "__brand": {
+                                                "type": "string",
+                                                "const": "CamerasId"
+                                            }
+                                        },
+                                        "required": [
+                                            "__brand"
+                                        ]
+                                    },
+                                    {
+                                        "type": "string"
+                                    }
+                                ]
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "token": {
+                                "type": "string"
+                            },
+                            "local_address": {
+                                "type": "string"
+                            },
+                            "status": {
+                                "description": "Represents the enum public.camera_status",
+                                "enum": [
+                                    "active",
+                                    "inactive",
+                                    "maintenance"
+                                ],
+                                "type": "string"
+                            },
+                            "connected_at": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "area_id": {
+                                "description": "Identifier type for public.areas",
+                                "allOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "__brand": {
+                                                "type": "string",
+                                                "const": "AreasId"
+                                            }
+                                        },
+                                        "required": [
+                                            "__brand"
+                                        ]
+                                    },
+                                    {
+                                        "type": "string"
+                                    }
+                                ]
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "required": [
+                            "area_id",
+                            "connected_at",
+                            "created_at",
+                            "id",
+                            "local_address",
+                            "name",
+                            "status",
+                            "token",
+                            "updated_at"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "data",
+                "success"
+            ]
         },
         "UserId": {
             "description": "Identifier type for public.users",
@@ -898,71 +993,11 @@ export const _schema = {
         "UserResponse": {
             "type": "object",
             "properties": {
-                "id": {
-                    "description": "Identifier type for public.users",
-                    "allOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "__brand": {
-                                    "type": "string",
-                                    "const": "UsersId"
-                                }
-                            },
-                            "required": [
-                                "__brand"
-                            ]
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
+                "success": {
+                    "type": "boolean",
+                    "const": true
                 },
-                "name": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "username": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "created_at",
-                "id",
-                "name",
-                "updated_at",
-                "username"
-            ]
-        },
-        "UserLoginRequest": {
-            "type": "object",
-            "properties": {
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "password",
-                "username"
-            ]
-        },
-        "UserLoginResponse": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string"
-                },
-                "user": {
+                "data": {
                     "type": "object",
                     "properties": {
                         "id": {
@@ -1010,8 +1045,94 @@ export const _schema = {
                 }
             },
             "required": [
-                "token",
-                "user"
+                "data",
+                "success"
+            ]
+        },
+        "UserLoginRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "password",
+                "username"
+            ]
+        },
+        "UserLoginResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "const": true
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "token": {
+                            "type": "string"
+                        },
+                        "user": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "Identifier type for public.users",
+                                    "allOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "__brand": {
+                                                    "type": "string",
+                                                    "const": "UsersId"
+                                                }
+                                            },
+                                            "required": [
+                                                "__brand"
+                                            ]
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "username": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "created_at",
+                                "id",
+                                "name",
+                                "updated_at",
+                                "username"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "token",
+                        "user"
+                    ]
+                }
+            },
+            "required": [
+                "data",
+                "success"
             ]
         },
         "UserJWTPayload": {

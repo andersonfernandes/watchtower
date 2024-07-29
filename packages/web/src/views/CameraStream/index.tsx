@@ -1,4 +1,4 @@
-import useApi from "@/hooks/useApi";
+import useApi from "@/adapters/api/useApi";
 import { useEffect, useRef } from "react";
 import useWebSocket from "react-use-websocket";
 

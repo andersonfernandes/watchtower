@@ -1,21 +1,21 @@
-import useApi from "@/hooks/useApi";
+import useApi from "@/adapters/api/useApi";
+import type { Camera } from "@watchtower-api/types";
 import { useEffect, useState } from "react";
 
 export default function Cameras() {
-  // TODO: Shared type from the API to response and model
   const [loading, setLoading] = useState(false);
-  const [cameras, setCameras] = useState([]);
+  const [cameras, setCameras] = useState<Camera[]>([]);
   const api = useApi();
 
   useEffect(() => {
     if (!loading) {
       setLoading(true);
 
-      api
-        .get("/cameras")
-        .then(({ data: responseData }) => {
-          if (responseData.success) {
-            setCameras(responseData.data);
+      api.cameras
+        .getCameras()
+        .then(({ success, data }) => {
+          if (success) {
+            setCameras(data);
           }
         })
         .finally(() => setLoading(false));

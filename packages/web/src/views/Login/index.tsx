@@ -1,4 +1,4 @@
-import useApi from "@/hooks/useApi";
+import useApi from "@/adapters/api/useApi";
 import { useEffect, useState, type FormEvent } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
@@ -21,21 +21,21 @@ export default function Login() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    api
-      .post("users/login", {
+    api.users
+      .login({
         username: formData.username,
         password: formData.password,
       })
       .then((response) => {
-        const { data: responseData } = response;
+        const { success, data } = response;
 
-        if (response.status === 200 && responseData.success) {
+        if (success) {
           signIn({
             auth: {
-              token: responseData.data.token,
+              token: data.token,
               type: "Bearer",
             },
-            userState: responseData.data.user,
+            userState: data.user,
             // refresh: response.data.refreshToken,
           });
 

@@ -1,7 +1,7 @@
 import User from "@/db/models/User";
 import { Request, Response } from "express";
-
-import { Query, Send, ParamsDictionary } from "express-serve-static-core";
+import { ParamsDictionary, Query, Send } from "express-serve-static-core";
+import { ErrorResponse, SuccessResponse } from "./schemas";
 
 export interface AppRequest<
   B = {},
@@ -14,6 +14,6 @@ export interface AppRequest<
   query: Q;
 }
 
-export interface AppResponse<ResBody = {}> extends Response {
-  json: Send<{ success: boolean; data: ResBody | { errors: string[] } }, this>;
+export interface AppResponse<B = {}> extends Response {
+  json: Send<B | ErrorResponse, this>;
 }

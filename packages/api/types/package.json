@@ -1,7 +1,8 @@
 {
-  "name": "@watchtower/types",
+  "name": "@watchtower-api/types",
   "version": "1.0.0",
   "main": "src/index.ts",
+  "types": "src/index.ts",
   "devDependencies": {
     "typescript": "^5.5.3"
   }
