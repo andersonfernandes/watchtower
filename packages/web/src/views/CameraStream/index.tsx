@@ -1,26 +1,40 @@
 import useApi from "@/adapters/api/useApi";
-import { useEffect, useRef } from "react";
+import type { Camera } from "@watchtower-api/types";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
   const videoRef = useRef<HTMLImageElement>(null);
+  const [socketUrl, setSocketUrl] = useState(import.meta.env.VITE_WS_URL);
+  const [camera, setCamera] = useState<Camera>(null);
+  const { id } = useParams();
+  const api = useApi();
 
-  const { getWebSocket } = useWebSocket(
-    "ws://localhost:5000?token=testing&client=viewer",
-    {
-      onOpen: () => {
-        console.debug("WebSocket connection established.");
-      },
-      onMessage: (event) => {
-        const blob = new Blob([event.data], { type: "image/jpeg" });
-        const url = URL.createObjectURL(blob);
-
-        if (videoRef.current) {
-          videoRef.current.src = url;
+  useEffect(() => {
+    if (id) {
+      api.cameras.getCamera(id).then(({ success, data }) => {
+        if (success) {
+          setCamera(data);
+          setSocketUrl(`${import.meta.env.VITE_WS_URL}&token=${data.token}`);
         }
-      },
+      });
     }
-  );
+  }, [id]);
+
+  const { getWebSocket } = useWebSocket(socketUrl, {
+    onOpen: () => {
+      console.debug("WebSocket connection established.");
+    },
+    onMessage: (event) => {
+      const blob = new Blob([event.data], { type: "image/jpeg" });
+      const url = URL.createObjectURL(blob);
+
+      if (videoRef.current) {
+        videoRef.current.src = url;
+      }
+    },
+  });
 
   useEffect(() => {
     return () => {

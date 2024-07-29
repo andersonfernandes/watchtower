@@ -13,8 +13,8 @@ export const initWebSocket = (server: Server) => {
     const token = url.searchParams.get("token");
     const client = url.searchParams.get("client");
 
-    if (!["camera", "viewer"].includes(client)) {
-      logger.error("Invalid client identifier");
+    if (!token || !["camera", "viewer"].includes(client)) {
+      logger.debug({ token, client }, "Invalid Params");
       return ws.close();
     }
 
@@ -38,6 +38,8 @@ export const initWebSocket = (server: Server) => {
           user_agent: req.headers["user-agent"] || "",
         },
       });
+
+      logger.info(`${client} connected`);
 
       ws.on("message", (data) => {
         wsServer.clients.forEach((client) => {

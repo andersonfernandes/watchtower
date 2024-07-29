@@ -14,7 +14,7 @@ export default function Router() {
         <Route element={<AuthOutlet fallbackPath="/login" />}>
           <Route path="/" element={<Home />} />
           <Route path="/cameras" element={<Cameras />} />
-          <Route path="/cameras/:id/stream" element={<CameraStream />} />
+          <Route path="/cameras/:id" element={<CameraStream />} />
         </Route>
       </Routes>
     </BrowserRouter>

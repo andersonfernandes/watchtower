@@ -1,6 +1,7 @@
 import useApi from "@/adapters/api/useApi";
 import type { Camera } from "@watchtower-api/types";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Cameras() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,9 @@ export default function Cameras() {
 
       <main>
         {cameras.map((camera) => (
-          <h2 key={camera.id}>{camera.name}</h2>
+          <Link key={camera.id} to={camera.id}>
+            {camera.name}
+          </Link>
         ))}
       </main>
     </>
