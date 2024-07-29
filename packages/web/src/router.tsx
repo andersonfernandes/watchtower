@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CameraStream from "./views/CameraStream";
 import Home from "./views/Home";
 import Login from "./views/Login";
+import Cameras from "./views/Cameras";
 
 export default function Router() {
   return (
@@ -12,7 +13,8 @@ export default function Router() {
 
         <Route element={<AuthOutlet fallbackPath="/login" />}>
           <Route path="/" element={<Home />} />
-          <Route path="/cameras" element={<CameraStream />} />
+          <Route path="/cameras" element={<Cameras />} />
+          <Route path="/cameras/:id/stream" element={<CameraStream />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -4,35 +4,33 @@ import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
   const videoRef = useRef<HTMLImageElement>(null);
-  const api = useApi();
 
-  // const { getWebSocket } = useWebSocket(
-  //   "ws://localhost:5000?token=testing&client=viewer",
-  //   {
-  //     onOpen: () => {
-  //       console.debug("WebSocket connection established.");
-  //     },
-  //     onMessage: (event) => {
-  //       const blob = new Blob([event.data], { type: "image/jpeg" });
-  //       const url = URL.createObjectURL(blob);
+  const { getWebSocket } = useWebSocket(
+    "ws://localhost:5000?token=testing&client=viewer",
+    {
+      onOpen: () => {
+        console.debug("WebSocket connection established.");
+      },
+      onMessage: (event) => {
+        const blob = new Blob([event.data], { type: "image/jpeg" });
+        const url = URL.createObjectURL(blob);
 
-  //       if (videoRef.current) {
-  //         videoRef.current.src = url;
-  //       }
-  //     },
-  //   }
-  // );
+        if (videoRef.current) {
+          videoRef.current.src = url;
+        }
+      },
+    }
+  );
 
   useEffect(() => {
-    api.get("/cameras");
     return () => {
-      // getWebSocket()?.close();
+      getWebSocket()?.close();
     };
   }, []);
 
   return (
     <>
-      <h1>Watchtower - Cameras</h1>
+      <h1>Watchtower - Camera Stream</h1>
 
       <main>
         <img
