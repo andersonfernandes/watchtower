@@ -43,6 +43,7 @@ export const initWebSocket = (server: Server) => {
 
       ws.on("message", (data) => {
         wsServer.clients.forEach((client) => {
+          // TODO: Check if is the same client
           if (client.readyState === WebSocket.OPEN) {
             client.send(data);
           }
