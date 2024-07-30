@@ -14,7 +14,7 @@ export const initWebSocket = (server: Server) => {
     const client = url.searchParams.get("client");
 
     if (!token || !["camera", "viewer"].includes(client)) {
-      logger.debug({ token, client }, "Invalid Params");
+      logger.debug({ token, client }, "[WebSocket] Invalid Params");
       return ws.close();
     }
 
@@ -25,26 +25,34 @@ export const initWebSocket = (server: Server) => {
       const camera = await db("cameras").where("id", cameraId).first();
 
       if (!camera) {
-        logger.error("Invalid token. CameraId not found!");
+        logger.error("[WebSocket] Invalid token. CameraId not found!");
         return ws.close();
       }
+
+      let clientIp = req.socket.remoteAddress;
+      const forwardedFor = req.headers["x-forwarded-for"];
+      if (forwardedFor) {
+        const forwardedIps = forwardedFor.toString().split(",");
+        clientIp = forwardedIps[0].trim();
+      }
+
+      const userAgent = req.headers["user-agent"] || "";
 
       await db("camera_logs").insert({
         camera_id: cameraId,
         event_type: client === "camera" ? "camera_online" : "viewer_connected",
         event_at: new Date(),
         event_details: {
-          client_ip: req.socket.remoteAddress,
-          user_agent: req.headers["user-agent"] || "",
+          client_ip: clientIp,
+          user_agent: userAgent,
         },
       });
 
-      logger.info(`${client} connected`);
+      logger.info(`[WebSocket] ${client} connected`);
 
       ws.on("message", (data) => {
         wsServer.clients.forEach((client) => {
-          // TODO: Check if is the same client
-          if (client.readyState === WebSocket.OPEN) {
+          if (client !== ws && client.readyState === WebSocket.OPEN) {
             client.send(data);
           }
         });
@@ -57,17 +65,17 @@ export const initWebSocket = (server: Server) => {
             client === "camera" ? "camera_offline" : "viewer_disconnected",
           event_at: new Date(),
           event_details: {
-            client_ip: req.socket.remoteAddress,
-            user_agent: req.headers["user-agent"] || "",
+            client_ip: clientIp,
+            user_agent: userAgent,
           },
         });
       });
 
       ws.on("error", (err) => {
-        logger.error(`WebSocket Error: ${err.message}`);
+        logger.error(`[WebSocket] Error: ${err.message}`);
       });
     } catch (error) {
-      logger.error(error);
+      logger.error("[WebSocket] Error:", error);
       ws.close;
     }
   });
