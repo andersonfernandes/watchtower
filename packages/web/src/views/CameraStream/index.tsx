@@ -1,4 +1,5 @@
 import useApi from "@/adapters/api/useApi";
+import Loading from "@/components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,7 +10,7 @@ export default function CameraStream() {
   const [socketUrl, setSocketUrl] = useState(import.meta.env.VITE_WS_URL);
   const { id } = useParams();
   const api = useApi();
-  const { data: camera } = useQuery({
+  const { data: camera, isLoading } = useQuery({
     queryKey: ["cameras"],
     queryFn: async () => {
       if (!id) return Promise.resolve();
@@ -43,6 +44,8 @@ export default function CameraStream() {
 
   return (
     <>
+      <Loading visible={isLoading} />
+
       <h1>{`Watchtower - ${camera.name} Stream`}</h1>
 
       <main>
