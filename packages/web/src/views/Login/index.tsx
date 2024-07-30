@@ -1,4 +1,6 @@
 import useApi from "@/adapters/api/useApi";
+import { useMutation } from "@tanstack/react-query";
+import type { UserLoginRequest } from "@watchtower-api/types";
 import { useEffect, useState, type FormEvent } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
@@ -9,6 +11,22 @@ export default function Login() {
   const signIn = useSignIn();
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
+  const loginMutation = useMutation({
+    mutationFn: async ({ username, password }: UserLoginRequest) =>
+      api.users.login({ username, password }).then(({ data }) => data),
+    onSuccess: async (data) => {
+      signIn({
+        auth: {
+          token: data.token,
+          type: "Bearer",
+        },
+        userState: data.user,
+        // refresh: response.data.refreshToken,
+      });
+
+      navigate("/");
+    },
+  });
 
   const [formData, setFormData] = useState({ username: "", password: "" });
 
@@ -21,27 +39,10 @@ export default function Login() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    api.users
-      .login({
-        username: formData.username,
-        password: formData.password,
-      })
-      .then((response) => {
-        const { success, data } = response;
-
-        if (success) {
-          signIn({
-            auth: {
-              token: data.token,
-              type: "Bearer",
-            },
-            userState: data.user,
-            // refresh: response.data.refreshToken,
-          });
-
-          navigate("/");
-        }
-      });
+    loginMutation.mutate({
+      username: formData.username,
+      password: formData.password,
+    });
   };
 
   return (

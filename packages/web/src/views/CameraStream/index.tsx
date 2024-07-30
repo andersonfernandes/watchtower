@@ -1,5 +1,5 @@
 import useApi from "@/adapters/api/useApi";
-import type { Camera } from "@watchtower-api/types";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
@@ -7,20 +7,19 @@ import useWebSocket from "react-use-websocket";
 export default function CameraStream() {
   const videoRef = useRef<HTMLImageElement>(null);
   const [socketUrl, setSocketUrl] = useState(import.meta.env.VITE_WS_URL);
-  const [camera, setCamera] = useState<Camera>(null);
   const { id } = useParams();
   const api = useApi();
+  const { data: camera } = useQuery({
+    queryKey: ["cameras"],
+    queryFn: async () => {
+      if (!id) return Promise.resolve();
 
-  useEffect(() => {
-    if (id) {
-      api.cameras.getCamera(id).then(({ success, data }) => {
-        if (success) {
-          setCamera(data);
-          setSocketUrl(`${import.meta.env.VITE_WS_URL}&token=${data.token}`);
-        }
+      return api.cameras.getCamera(id).then(({ data }) => {
+        setSocketUrl(`${import.meta.env.VITE_WS_URL}&token=${data.token}`);
+        return data;
       });
-    }
-  }, [id]);
+    },
+  });
 
   const { getWebSocket } = useWebSocket(socketUrl, {
     onOpen: () => {
@@ -44,7 +43,7 @@ export default function CameraStream() {
 
   return (
     <>
-      <h1>Watchtower - Camera Stream</h1>
+      <h1>{`Watchtower - ${camera.name} Stream`}</h1>
 
       <main>
         <img
