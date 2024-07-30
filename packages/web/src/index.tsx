@@ -3,6 +3,7 @@ import AuthProvider from "react-auth-kit/AuthProvider";
 import createStore from "react-auth-kit/createStore";
 import { createRoot } from "react-dom/client";
 import Router from "./router";
+import App from "./App";
 
 const store = createStore({
   authName: "_auth",
@@ -16,7 +17,9 @@ if (app)
   createRoot(app).render(
     <StrictMode>
       <AuthProvider store={store}>
-        <Router />
+        <App>
+          <Router />
+        </App>
       </AuthProvider>
     </StrictMode>
   );

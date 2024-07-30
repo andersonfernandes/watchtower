@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "npm-run-all -p db:dev api:dev web:dev",
-    "db:dev": "docker compose up -d",
+    "db:dev": "docker compose up",
     "api:dev": "JWT_SECRET=local npm run dev --workspace api",
     "web:dev": "npm run dev --workspace web"
   }
