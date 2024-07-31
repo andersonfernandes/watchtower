@@ -1,13 +1,13 @@
 import useApi from "@/adapters/api/useApi";
 import Loading from "@/components/Loading";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
   const videoRef = useRef<HTMLImageElement>(null);
-  const [socketUrl, setSocketUrl] = useState(import.meta.env.VITE_WS_URL);
+  const [socketUrl, setSocketUrl] = useState<string>("");
   const { id } = useParams();
   const api = useApi();
   const { data: camera, isLoading } = useQuery({
@@ -22,7 +22,13 @@ export default function CameraStream() {
     },
   });
 
-  const { getWebSocket } = useWebSocket(socketUrl, {
+  const getSocketUrl = useCallback((): Promise<string> => {
+    return new Promise((resolve) => {
+      resolve(socketUrl);
+    });
+  }, [socketUrl]);
+
+  const { getWebSocket } = useWebSocket(getSocketUrl, {
     onOpen: () => {
       console.debug("WebSocket connection established.");
     },
@@ -46,7 +52,7 @@ export default function CameraStream() {
     <>
       <Loading visible={isLoading} />
 
-      <h1>{`Watchtower - ${camera.name} Stream`}</h1>
+      <h1>{`Watchtower - ${camera?.name} Stream`}</h1>
 
       <main>
         <img
