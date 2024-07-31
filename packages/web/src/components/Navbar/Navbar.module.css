@@ -1,0 +1,13 @@
+.control {
+  display: block;
+  color: var(--mantine-color-blue-light-color);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  font-weight: 500;
+  margin: 5px auto;
+  text-align: center;
+}
+
+.control .icon {
+  font-size: 2rem;
+}

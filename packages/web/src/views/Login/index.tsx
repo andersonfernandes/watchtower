@@ -1,4 +1,5 @@
 import useApi from "@/adapters/api/useApi";
+import Layout from "@/components/Layout";
 import { useMutation } from "@tanstack/react-query";
 import type { UserLoginRequest } from "@watchtower-api/types";
 import { useEffect, useState, type FormEvent } from "react";
@@ -46,7 +47,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <Layout>
       <h1>Watchtower</h1>
 
       <main>
@@ -67,6 +68,6 @@ export default function Login() {
           <button>Submit</button>
         </form>
       </main>
-    </>
+    </Layout>
   );
 }

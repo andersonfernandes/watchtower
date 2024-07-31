@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout";
 import { Box, Button, Center } from "@mantine/core";
 import { useEffect } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
@@ -15,7 +16,7 @@ export default function Home() {
   }, [isAuthenticated]);
 
   return (
-    <>
+    <Layout>
       <Center my={"20%"}>
         <Box>
           <Button
@@ -27,6 +28,6 @@ export default function Home() {
           </Button>
         </Box>
       </Center>
-    </>
+    </Layout>
   );
 }

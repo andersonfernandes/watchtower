@@ -1,4 +1,5 @@
 import useApi from "@/adapters/api/useApi";
+import Layout from "@/components/Layout";
 import Loading from "@/components/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -11,7 +12,7 @@ export default function CameraStream() {
   const { id } = useParams();
   const api = useApi();
   const { data: camera, isLoading } = useQuery({
-    queryKey: ["cameras"],
+    queryKey: ["camera"],
     queryFn: async () => {
       if (!id) return Promise.resolve();
 
@@ -49,10 +50,8 @@ export default function CameraStream() {
   }, []);
 
   return (
-    <>
-      <Loading visible={isLoading} />
-
-      <h1>{`Watchtower - ${camera?.name} Stream`}</h1>
+    <Layout isLoading={isLoading}>
+      <h1>{`${camera?.name} Stream`}</h1>
 
       <main>
         <img
@@ -62,6 +61,6 @@ export default function CameraStream() {
           style={{ width: 500 }}
         />
       </main>
-    </>
+    </Layout>
   );
 }

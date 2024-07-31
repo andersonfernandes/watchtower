@@ -1,5 +1,5 @@
 import useApi from "@/adapters/api/useApi";
-import Loading from "@/components/Loading";
+import Layout from "@/components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
@@ -11,10 +11,8 @@ export default function Cameras() {
   });
 
   return (
-    <>
-      <Loading visible={isLoading} />
-
-      <h1>Watchtower - Cameras</h1>
+    <Layout isLoading={isLoading}>
+      <h1>Cameras</h1>
 
       <main>
         {cameras?.map((camera) => (
@@ -23,6 +21,6 @@ export default function Cameras() {
           </Link>
         ))}
       </main>
-    </>
+    </Layout>
   );
 }
