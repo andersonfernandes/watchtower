@@ -69,6 +69,8 @@ export const initWebSocket = (server: Server) => {
             user_agent: userAgent,
           },
         });
+
+        logger.info(`[WebSocket] ${client} disconnected`);
       });
 
       ws.on("error", (err) => {

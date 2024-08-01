@@ -155,3 +155,7 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node
+
+
+# ESP-32
+esp32/websocket_camera_stream/config.h
