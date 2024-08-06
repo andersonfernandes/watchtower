@@ -10,6 +10,4 @@
 ### Steps
 
 - Install the dependencies with: `npm install`
-- Run docker compose (for the database): `docker compose up`
-- Start the API: `npm run dev --workspace api`
-- Start the frontend: `npm run dev --workspace web`
+- Start the App: `npm run dev`
