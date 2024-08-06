@@ -3,6 +3,7 @@ import {
   Avatar,
   Burger,
   Group,
+  Image,
   Menu,
   Title,
   Tooltip,
@@ -17,6 +18,7 @@ import { FaArrowRightFromBracket, FaCamera } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import classes from "./Navbar.module.css";
+import logo from "@/assets/watchtower-logo-white.svg";
 
 interface MenuItem {
   title: string;
@@ -100,14 +102,14 @@ export default function Navbar({ children }: { children: ReactNode }) {
               />
             </>
           )}
-          <Group justify="start" style={{ flex: 1 }}>
-            <Title
-              order={3}
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/")}
-            >
-              Watchtower
-            </Title>
+          <Group
+            w="100%"
+            justify="start"
+            style={{ flex: 2, cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
+            <Image src={logo} w={35} />
+            <Title order={2}>Watchtower</Title>
           </Group>
 
           <Group justify="end" style={{ flex: 1 }}>

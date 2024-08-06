@@ -1,5 +1,6 @@
 import useApi from "@/adapters/api/useApi";
 import Layout from "@/components/Layout";
+import { Button, Container, PasswordInput, TextInput } from "@mantine/core";
 import { useMutation } from "@tanstack/react-query";
 import type { UserLoginRequest } from "@watchtower-api/types";
 import { useEffect, useState, type FormEvent } from "react";
@@ -48,25 +49,29 @@ export default function Login() {
 
   return (
     <Layout>
-      <h1>Watchtower</h1>
-
       <main>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
-          />
-          <input
-            type="password"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
+        <Container size="xs">
+          <form onSubmit={onSubmit}>
+            <TextInput
+              label="Username"
+              mt={15}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+            />
+            <PasswordInput
+              label="Password"
+              mt={15}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
 
-          <button>Submit</button>
-        </form>
+            <Button type="submit" mt={15} variant="filled" fullWidth>
+              Login
+            </Button>
+          </form>
+        </Container>
       </main>
     </Layout>
   );
