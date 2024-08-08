@@ -48,7 +48,13 @@ export const initWebSocket = (server: Server) => {
         },
       });
 
-      logger.info(`[WebSocket] ${client} connected`);
+      if (client === "camera") {
+        await db("cameras").where("id", camera.id).update({ status: "active" });
+      }
+
+      logger.info(
+        `[WebSocket] ${client} connected at ${camera.name} (${camera.id})`
+      );
 
       ws.on("message", (data) => {
         wsServer.clients.forEach((client) => {
@@ -70,7 +76,15 @@ export const initWebSocket = (server: Server) => {
           },
         });
 
-        logger.info(`[WebSocket] ${client} disconnected`);
+        if (client === "camera") {
+          await db("cameras")
+            .where("id", camera.id)
+            .update({ status: "inactive" });
+        }
+
+        logger.info(
+          `[WebSocket] ${client} disconnected at ${camera.name} (${camera.id})`
+        );
       });
 
       ws.on("error", (err) => {
