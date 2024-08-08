@@ -1,5 +1,4 @@
 import useApi from "@/adapters/api/useApi";
-import CameraItem from "@/components/CameraItem";
 import Layout from "@/components/Layout";
 import { Anchor, Box, Breadcrumbs, Grid, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +7,7 @@ import { Link } from "react-router-dom";
 export default function Areas() {
   const api = useApi();
   const { data: areas, isLoading } = useQuery({
-    queryKey: ["cameras"],
+    queryKey: ["areas"],
     queryFn: async () => api.areas.getAreas().then(({ data }) => data),
   });
 
