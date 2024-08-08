@@ -1,6 +1,14 @@
 import useApi from "@/adapters/api/useApi";
 import Layout from "@/components/Layout";
-import { Anchor, Box, Breadcrumbs, Grid, Image } from "@mantine/core";
+import {
+  Anchor,
+  Box,
+  Breadcrumbs,
+  Center,
+  Grid,
+  Image,
+  Loader,
+} from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -8,6 +16,7 @@ import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
   const streamRef = useRef<HTMLImageElement>(null);
+  const [active, setActive] = useState<boolean>(false);
   const [socketUrl, setSocketUrl] = useState<string>("");
   const { id } = useParams();
   const api = useApi();
@@ -34,6 +43,8 @@ export default function CameraStream() {
       console.debug("WebSocket connection established.");
     },
     onMessage: (event) => {
+      setActive(true);
+
       const blob = new Blob([event.data], { type: "image/jpeg" });
       const url = URL.createObjectURL(blob);
 
@@ -70,12 +81,14 @@ export default function CameraStream() {
       </Grid>
 
       <Box my="md">
-        <Image
-          w={500}
-          radius="md"
-          ref={streamRef}
-          fallbackSrc="https://placehold.co/500x300?text=Loading..."
-        />
+        {!active && (
+          <Center>
+            <Loader />
+          </Center>
+        )}
+        {active && (
+          <Image w={{ sm: 500, md: "auto" }} radius="md" ref={streamRef} />
+        )}
       </Box>
     </Layout>
   );

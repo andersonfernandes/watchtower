@@ -21,11 +21,11 @@ export default function CameraItem({ camera }: { camera: Camera }) {
       }}
     >
       <Grid>
-        <Grid.Col span={10}>
+        <Grid.Col span={8}>
           <Text>{camera.name}</Text>
         </Grid.Col>
 
-        <Grid.Col span={2}>
+        <Grid.Col span={4}>
           <Center>
             <Badge p={12} color={theme.colors.dark[7]}>
               {camera.status}
