@@ -6,6 +6,7 @@ on:
 
 jobs:
   api-deploy:
+    name: Deploy API
     runs-on: ubuntu-latest
 
     steps:
@@ -25,11 +26,12 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy
-        run: railway up
+        run: railway up --service ${{ vars.API_SERVICE_ID }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
   frontend-deploy:
+    name: Deploy Frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -49,6 +51,6 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy
-        run: railway up
+        run: railway up --service ${{ vars.FRONTEND_SERVICE_ID }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
