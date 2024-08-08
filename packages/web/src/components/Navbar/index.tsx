@@ -8,7 +8,6 @@ import {
   Menu,
   Text,
   Title,
-  Tooltip,
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -16,7 +15,11 @@ import { type ReactNode } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { type IconType } from "react-icons";
-import { FaArrowRightFromBracket, FaCamera } from "react-icons/fa6";
+import {
+  FaArrowRightFromBracket,
+  FaCamera,
+  FaHouseSignal,
+} from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import logo from "@/assets/watchtower-logo-white.svg";
@@ -45,6 +48,12 @@ export default function Navbar({ children }: { children: ReactNode }) {
       isActive: isCurrentRoute("cameras"),
       action: () => navigate("/cameras"),
     },
+    {
+      title: "Areas",
+      icon: FaHouseSignal,
+      isActive: isCurrentRoute("areas"),
+      action: () => navigate("/areas"),
+    },
   ];
 
   const renderMenuItem = (item: MenuItem) => (
@@ -57,6 +66,8 @@ export default function Navbar({ children }: { children: ReactNode }) {
         opened && toggle();
         item.action();
       }}
+      style={{ minWidth: "130px" }}
+      p="sm"
     >
       <Center>
         <item.icon className={classes.icon} />

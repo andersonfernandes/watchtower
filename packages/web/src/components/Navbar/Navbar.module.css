@@ -11,3 +11,15 @@
 .control .icon {
   font-size: 1.5rem;
 }
+
+.control.active {
+  background-color: var(--mantine-color-dark-filled);
+  border-radius: var(--mantine-radius-md);
+  padding: var(--mantine-spacing-sm);
+}
+
+@media (width <= 576px) {
+  .control.active {
+    width: 100%;
+  }
+}
