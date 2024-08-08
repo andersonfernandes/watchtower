@@ -20,7 +20,7 @@ jobs:
           cache: npm
 
       - name: Install packages
-        run: npm install --workspace api
+        run: npm install --workspace api --omit=dev
 
       - name: Install Railway
         run: npm i -g @railway/cli
@@ -45,7 +45,7 @@ jobs:
           cache: npm
 
       - name: Install packages
-        run: npm install --workspace web
+        run: npm install --omit=dev
 
       - name: Install Railway
         run: npm i -g @railway/cli
