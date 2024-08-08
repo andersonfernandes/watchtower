@@ -1,13 +1,13 @@
 import useApi from "@/adapters/api/useApi";
 import Layout from "@/components/Layout";
-import Loading from "@/components/Loading";
+import { Anchor, Box, Breadcrumbs, Grid, Image } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
-  const videoRef = useRef<HTMLImageElement>(null);
+  const streamRef = useRef<HTMLImageElement>(null);
   const [socketUrl, setSocketUrl] = useState<string>("");
   const { id } = useParams();
   const api = useApi();
@@ -37,8 +37,8 @@ export default function CameraStream() {
       const blob = new Blob([event.data], { type: "image/jpeg" });
       const url = URL.createObjectURL(blob);
 
-      if (videoRef.current) {
-        videoRef.current.src = url;
+      if (streamRef.current) {
+        streamRef.current.src = url;
       }
     },
   });
@@ -51,16 +51,32 @@ export default function CameraStream() {
 
   return (
     <Layout isLoading={isLoading}>
-      <h1>{`${camera?.name} Stream`}</h1>
+      <Grid>
+        <Grid.Col span={6}>
+          <Breadcrumbs>
+            <Anchor underline="never" component={Link} to="/cameras">
+              Cameras
+            </Anchor>
 
-      <main>
-        <img
-          src="https://placehold.co/500x300?text=Loading..."
-          ref={videoRef}
-          alt="Stream"
-          style={{ width: 500 }}
+            <Anchor
+              underline="never"
+              component={Link}
+              to={`/cameras/${camera?.id}`}
+            >
+              {camera?.name}
+            </Anchor>
+          </Breadcrumbs>
+        </Grid.Col>
+      </Grid>
+
+      <Box my="md">
+        <Image
+          w={500}
+          radius="md"
+          ref={streamRef}
+          fallbackSrc="https://placehold.co/500x300?text=Loading..."
         />
-      </main>
+      </Box>
     </Layout>
   );
 }

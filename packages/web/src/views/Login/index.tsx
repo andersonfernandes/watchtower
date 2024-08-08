@@ -1,6 +1,12 @@
 import useApi from "@/adapters/api/useApi";
 import Layout from "@/components/Layout";
-import { Button, Container, PasswordInput, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  PasswordInput,
+  TextInput,
+} from "@mantine/core";
 import { useMutation } from "@tanstack/react-query";
 import type { UserLoginRequest } from "@watchtower-api/types";
 import { useEffect, useState, type FormEvent } from "react";
@@ -49,7 +55,7 @@ export default function Login() {
 
   return (
     <Layout>
-      <main>
+      <Box>
         <Container size="xs">
           <form onSubmit={onSubmit}>
             <TextInput
@@ -72,7 +78,7 @@ export default function Login() {
             </Button>
           </form>
         </Container>
-      </main>
+      </Box>
     </Layout>
   );
 }

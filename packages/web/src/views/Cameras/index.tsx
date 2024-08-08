@@ -1,5 +1,7 @@
 import useApi from "@/adapters/api/useApi";
+import CameraItem from "@/components/CameraItem";
 import Layout from "@/components/Layout";
+import { Anchor, Box, Breadcrumbs, Grid } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
@@ -12,15 +14,21 @@ export default function Cameras() {
 
   return (
     <Layout isLoading={isLoading}>
-      <h1>Cameras</h1>
+      <Grid>
+        <Grid.Col span={6}>
+          <Breadcrumbs>
+            <Anchor underline="never" component={Link} to="/cameras">
+              Cameras
+            </Anchor>
+          </Breadcrumbs>
+        </Grid.Col>
+      </Grid>
 
-      <main>
+      <Box my="md">
         {cameras?.map((camera) => (
-          <Link key={camera.id} to={camera.id}>
-            {camera.name}
-          </Link>
+          <CameraItem key={camera.id} camera={camera} />
         ))}
-      </main>
+      </Box>
     </Layout>
   );
 }

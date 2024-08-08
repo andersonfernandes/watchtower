@@ -2,23 +2,25 @@ import {
   AppShell,
   Avatar,
   Burger,
+  Center,
   Group,
   Image,
   Menu,
+  Text,
   Title,
   Tooltip,
   UnstyledButton,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { type IconType } from "react-icons";
 import { FaArrowRightFromBracket, FaCamera } from "react-icons/fa6";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import classes from "./Navbar.module.css";
 import logo from "@/assets/watchtower-logo-white.svg";
+import classes from "./Navbar.module.css";
 
 interface MenuItem {
   title: string;
@@ -28,8 +30,7 @@ interface MenuItem {
 }
 
 export default function Navbar({ children }: { children: ReactNode }) {
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const [opened, { toggle }] = useDisclosure();
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
   const location = useLocation();
@@ -46,40 +47,35 @@ export default function Navbar({ children }: { children: ReactNode }) {
     },
   ];
 
-  useEffect(() => {
-    if (!isAuthenticated && mobileOpened) toggleMobile();
-    if (!isAuthenticated && desktopOpened) toggleDesktop();
-  }, [isAuthenticated]);
-
   const renderMenuItem = (item: MenuItem) => (
-    <div key={item.title}>
-      <Tooltip label={item.title} color="gray" withArrow position="right">
-        <UnstyledButton
-          className={
-            item.isActive
-              ? `${classes.control} ${classes.active}`
-              : classes.control
-          }
-          onClick={() => {
-            mobileOpened && toggleMobile();
-            item.action();
-          }}
-        >
-          <item.icon className={classes.icon} />
-        </UnstyledButton>
-      </Tooltip>
-    </div>
+    <UnstyledButton
+      key={item.title}
+      className={
+        item.isActive ? `${classes.control} ${classes.active}` : classes.control
+      }
+      onClick={() => {
+        opened && toggle();
+        item.action();
+      }}
+    >
+      <Center>
+        <item.icon className={classes.icon} />
+        <Text ml={10} size="md">
+          {item.title}
+        </Text>
+      </Center>
+    </UnstyledButton>
   );
 
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 80,
+        width: 180,
         breakpoint: "sm",
         collapsed: {
-          mobile: !mobileOpened,
-          desktop: !desktopOpened,
+          desktop: true,
+          mobile: !opened,
         },
       }}
       padding="md"
@@ -89,51 +85,51 @@ export default function Navbar({ children }: { children: ReactNode }) {
           {isAuthenticated && (
             <>
               <Burger
-                opened={mobileOpened}
-                onClick={toggleMobile}
+                opened={opened}
+                onClick={toggle}
                 hiddenFrom="sm"
-                size="sm"
-              />
-              <Burger
-                opened={desktopOpened}
-                onClick={toggleDesktop}
-                visibleFrom="sm"
                 size="sm"
               />
             </>
           )}
-          <Group
-            w="100%"
-            justify="start"
-            style={{ flex: 2, cursor: "pointer" }}
-            onClick={() => navigate("/")}
-          >
-            <Image src={logo} w={35} />
-            <Title order={2}>Watchtower</Title>
+          <Group w="100%" justify="space-between" style={{ flex: 3 }}>
+            <Group
+              style={{ flex: 1, cursor: "pointer" }}
+              onClick={() => navigate("/")}
+            >
+              <Image src={logo} w={35} />
+              <Title order={2}>Watchtower</Title>
+            </Group>
           </Group>
 
           <Group justify="end" style={{ flex: 1 }}>
             {isAuthenticated && (
-              <Menu trigger="hover">
-                <Menu.Target>
-                  <Avatar
-                    style={{ cursor: "pointer" }}
-                    alt="User profile image"
-                  />
-                </Menu.Target>
+              <>
+                <Group mr="lg" gap={0} visibleFrom="sm">
+                  {menuItems.map(renderMenuItem)}
+                </Group>
 
-                <Menu.Dropdown>
-                  <Menu.Item
-                    leftSection={<FaArrowRightFromBracket />}
-                    onClick={() => {
-                      signOut();
-                      navigate("/");
-                    }}
-                  >
-                    Logout
-                  </Menu.Item>
-                </Menu.Dropdown>
-              </Menu>
+                <Menu trigger="hover">
+                  <Menu.Target>
+                    <Avatar
+                      style={{ cursor: "pointer" }}
+                      alt="User profile image"
+                    />
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      leftSection={<FaArrowRightFromBracket />}
+                      onClick={() => {
+                        signOut();
+                        navigate("/");
+                      }}
+                    >
+                      Logout
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </>
             )}
           </Group>
         </Group>
