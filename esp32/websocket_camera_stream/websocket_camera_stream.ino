@@ -118,6 +118,7 @@ esp_err_t setup_websocket()
 
 void setup()
 {
+  pinMode(CAMERA_LED_PIN, OUTPUT);
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
 
   Serial.begin(115200);
@@ -141,6 +142,7 @@ void loop()
     }
     
     client.sendBinary((const char *)fb->buf, fb->len);
+    delay(70); // ~ 15 FPS
     esp_camera_fb_return(fb);
     client.poll();
   }
