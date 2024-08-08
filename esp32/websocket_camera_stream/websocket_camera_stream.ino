@@ -66,7 +66,7 @@ esp_err_t init_camera()
 
   // parameters for image quality and size
   config.frame_size = FRAMESIZE_VGA; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-  config.jpeg_quality = 30;          // 10-63 lower number means higher quality
+  config.jpeg_quality = 20;          // 10-63 lower number means higher quality
   config.fb_count = 2;
 
   Serial.print("Connecting Camera: ");
@@ -103,6 +103,11 @@ esp_err_t setup_websocket()
 {
   Serial.print("Connecting WebSocket: ");
   client.onMessage(onMessageCallback);
+
+  if (USE_SSL)
+  {
+    client.setCACert(SSL_CERT);
+  }
 
   bool connected = client.connect(WEBSOCKET_URL);
   if (!connected)
@@ -142,7 +147,7 @@ void loop()
     }
     
     client.sendBinary((const char *)fb->buf, fb->len);
-    delay(70); // ~ 15 FPS
+    delay(50); // ~ 20 FPS
     esp_camera_fb_return(fb);
     client.poll();
   }
