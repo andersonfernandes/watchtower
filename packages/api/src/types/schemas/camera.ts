@@ -1,7 +1,8 @@
 import Camera from "@/db/models/Camera";
+import CameraStatus from "@/db/models/CameraStatus";
 import { SuccessResponse } from "./response";
 
-export { type Camera };
+export type { Camera, CameraStatus };
 
 export type CreateCameraRequest = Pick<
   Camera,
