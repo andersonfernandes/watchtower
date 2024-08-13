@@ -1,6 +1,8 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <ArduinoWebsockets.h>
+#include <ArduinoJson.h>
+#include "strings.h"
 #include "esp_timer.h"
 #include "img_converters.h"
 #include "fb_gfx.h"
@@ -30,14 +32,29 @@
 camera_fb_t *fb = NULL;
 size_t _jpg_buf_len = 0;
 uint8_t *_jpg_buf = NULL;
+bool led_on = false;
 
 using namespace websockets;
 WebsocketsClient client;
 
 void onMessageCallback(WebsocketsMessage message)
 {
-  Serial.print("Received Message: ");
-  Serial.println(message.data());
+  JsonDocument doc;
+  DeserializationError error = deserializeJson(doc, message.data());
+
+  if (error) {
+    Serial.println(error.f_str());
+    return;
+  }
+
+  const char* led = doc["led"];
+  if (strcmp(led, "off") == 0) {
+    led_on = false;
+    digitalWrite(CAMERA_LED_PIN, LOW);
+  } else {
+    led_on = true;
+    digitalWrite(CAMERA_LED_PIN, HIGH);
+  }
 }
 
 esp_err_t init_camera()
@@ -66,7 +83,7 @@ esp_err_t init_camera()
 
   // parameters for image quality and size
   config.frame_size = FRAMESIZE_VGA; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-  config.jpeg_quality = 20;          // 10-63 lower number means higher quality
+  config.jpeg_quality = 35;          // 10-63 lower number means higher quality
   config.fb_count = 2;
 
   Serial.print("Connecting Camera: ");
@@ -147,8 +164,8 @@ void loop()
     }
     
     client.sendBinary((const char *)fb->buf, fb->len);
-    delay(50); // ~ 20 FPS
     esp_camera_fb_return(fb);
+    
     client.poll();
   }
 }

@@ -4,6 +4,7 @@ import {
   Anchor,
   Box,
   Breadcrumbs,
+  Button,
   Center,
   Grid,
   Image,
@@ -11,12 +12,14 @@ import {
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { FaLightbulb, FaRegLightbulb } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 
 export default function CameraStream() {
   const streamRef = useRef<HTMLImageElement>(null);
   const [active, setActive] = useState<boolean>(false);
+  const [ledOn, setLedOn] = useState<boolean>(false);
   const [socketUrl, setSocketUrl] = useState<string>("");
   const { id } = useParams();
   const api = useApi();
@@ -38,7 +41,7 @@ export default function CameraStream() {
     });
   }, [socketUrl]);
 
-  const { getWebSocket } = useWebSocket(getSocketUrl, {
+  const { getWebSocket, sendJsonMessage } = useWebSocket(getSocketUrl, {
     onOpen: () => {
       console.debug("WebSocket connection established.");
     },
@@ -60,6 +63,11 @@ export default function CameraStream() {
     };
   }, []);
 
+  const toggleLed = () => {
+    sendJsonMessage({ led: !ledOn ? "on" : "off" });
+    setLedOn((prev) => !prev);
+  };
+
   return (
     <Layout isLoading={isLoading}>
       <Grid>
@@ -80,16 +88,18 @@ export default function CameraStream() {
         </Grid.Col>
       </Grid>
 
-      <Box my="md">
-        {!active && (
-          <Center>
-            <Loader />
-          </Center>
-        )}
+      <Center my="md">
+        {!active && <Loader />}
         {active && (
-          <Image w={{ sm: 500, md: "auto" }} radius="md" ref={streamRef} />
+          <Box>
+            <Image w={{ sm: 500, md: "auto" }} radius="md" ref={streamRef} />
+            <Button variant="transparent" onClick={toggleLed}>
+              {ledOn && <FaLightbulb />}
+              {!ledOn && <FaRegLightbulb />}
+            </Button>
+          </Box>
         )}
-      </Box>
+      </Center>
     </Layout>
   );
 }

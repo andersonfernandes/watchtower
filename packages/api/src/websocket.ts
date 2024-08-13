@@ -38,10 +38,11 @@ export const initWebSocket = (server: Server) => {
 
       const userAgent = req.headers["user-agent"] || "";
 
+      const connectedAt = new Date();
       await db("camera_logs").insert({
         camera_id: cameraId,
         event_type: client === "camera" ? "camera_online" : "viewer_connected",
-        event_at: new Date(),
+        event_at: connectedAt,
         event_details: {
           client_ip: clientIp,
           user_agent: userAgent,
@@ -49,7 +50,9 @@ export const initWebSocket = (server: Server) => {
       });
 
       if (client === "camera") {
-        await db("cameras").where("id", camera.id).update({ status: "active" });
+        await db("cameras")
+          .where("id", camera.id)
+          .update({ status: "active", connected_at: connectedAt });
       }
 
       logger.info(
