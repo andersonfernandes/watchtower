@@ -37,26 +37,6 @@ bool led_on = false;
 using namespace websockets;
 WebsocketsClient client;
 
-void onMessageCallback(WebsocketsMessage message)
-{
-  JsonDocument doc;
-  DeserializationError error = deserializeJson(doc, message.data());
-
-  if (error) {
-    Serial.println(error.f_str());
-    return;
-  }
-
-  const char* led = doc["led"];
-  if (strcmp(led, "off") == 0) {
-    led_on = false;
-    digitalWrite(CAMERA_LED_PIN, LOW);
-  } else {
-    led_on = true;
-    digitalWrite(CAMERA_LED_PIN, HIGH);
-  }
-}
-
 esp_err_t init_camera()
 {
   camera_config_t config;
@@ -83,7 +63,7 @@ esp_err_t init_camera()
 
   // parameters for image quality and size
   config.frame_size = FRAMESIZE_VGA; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-  config.jpeg_quality = 35;          // 10-63 lower number means higher quality
+  config.jpeg_quality = 25;          // 10-63 lower number means higher quality
   config.fb_count = 2;
 
   Serial.print("Connecting Camera: ");
@@ -114,6 +94,31 @@ esp_err_t setup_wifi()
   Serial.println("OK");
 
   return ESP_OK;
+}
+
+void onMessageCallback(WebsocketsMessage message)
+{
+  JsonDocument doc;
+  DeserializationError error = deserializeJson(doc, message.data());
+
+  if (error)
+  {
+    Serial.println(error.f_str());
+    return;
+  }
+
+  const char *led = doc["led"];
+  if (strcmp(led, "on") == 0)
+  {
+    led_on = true;
+    digitalWrite(CAMERA_LED_PIN, HIGH);
+  }
+  else
+  {
+
+    led_on = false;
+    digitalWrite(CAMERA_LED_PIN, LOW);
+  }
 }
 
 esp_err_t setup_websocket()
@@ -162,10 +167,10 @@ void loop()
       esp_camera_fb_return(fb);
       ESP.restart();
     }
-    
+
     client.sendBinary((const char *)fb->buf, fb->len);
     esp_camera_fb_return(fb);
-    
+
     client.poll();
   }
 }

@@ -49,10 +49,11 @@ export default function CameraStream() {
       setActive(true);
 
       const blob = new Blob([event.data], { type: "image/jpeg" });
-      const url = URL.createObjectURL(blob);
 
-      if (streamRef.current) {
+      if (streamRef.current && blob.size !== 0) {
+        const url = URL.createObjectURL(blob);
         streamRef.current.src = url;
+        streamRef.current.onload = () => URL.revokeObjectURL(url);
       }
     },
   });

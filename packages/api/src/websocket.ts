@@ -1,9 +1,14 @@
 import { Server } from "http";
 import { verify } from "jsonwebtoken";
-import WebSocket from "ws";
+import WebSocket, { RawData } from "ws";
 import { db } from "./db";
 import { env } from "./env";
 import { logger } from "./utils/logger";
+
+const MAX_BUFFER_SIZE = 60;
+const clients = new Map<string, WebSocket[]>();
+const cameras = new Map<string, WebSocket>();
+const buffers = new Map<string, RawData[]>();
 
 export const initWebSocket = (server: Server) => {
   const wsServer = new WebSocket.Server({ server });
@@ -55,16 +60,38 @@ export const initWebSocket = (server: Server) => {
           .update({ status: "active", connected_at: connectedAt });
       }
 
+      if (!clients.has(camera.id)) {
+        clients.set(camera.id, []);
+      }
+
+      if (!buffers.has(camera.id)) {
+        buffers.set(camera.id, []);
+      }
+
+      if (client === "viewer") {
+        clients.get(camera.id).push(ws);
+      } else {
+        cameras.set(camera.id, ws);
+      }
+
       logger.info(
         `[WebSocket] ${client} connected at ${camera.name} (${camera.id})`
       );
 
       ws.on("message", (data) => {
-        wsServer.clients.forEach((client) => {
-          if (client !== ws && client.readyState === WebSocket.OPEN) {
-            client.send(data);
+        if (client === "camera") {
+          const buffer = buffers.get(camera.id);
+          if (buffer.length >= MAX_BUFFER_SIZE) {
+            buffer.shift();
           }
-        });
+
+          buffer.push(data);
+        } else {
+          const cameraWs = cameras.get(camera.id);
+          if (cameraWs.readyState === WebSocket.OPEN) {
+            cameraWs.send(data);
+          }
+        }
       });
 
       ws.on("close", async () => {
@@ -88,6 +115,8 @@ export const initWebSocket = (server: Server) => {
         logger.info(
           `[WebSocket] ${client} disconnected at ${camera.name} (${camera.id})`
         );
+
+        clients.delete(camera.id);
       });
 
       ws.on("error", (err) => {
@@ -98,4 +127,19 @@ export const initWebSocket = (server: Server) => {
       ws.close;
     }
   });
+
+  setInterval(() => {
+    buffers.forEach((buffer, cameraId) => {
+      const wsClients = clients.get(cameraId);
+
+      if (wsClients) {
+        for (let ws of wsClients) {
+          if (ws.readyState === WebSocket.OPEN) {
+            const frame = buffer.shift();
+            ws.send(frame);
+          }
+        }
+      }
+    });
+  }, 1000 / 30);
 };
