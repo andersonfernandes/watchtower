@@ -6,6 +6,8 @@ const schema = z.object({
     .url()
     .default("postgres://postgres:postgres@localhost:5432/watchtower"),
   JWT_SECRET: z.string().min(1),
+  WS_MAX_BUFFER_SIZE: z.number().default(30),
+  WS_FRAME_RATE: z.number().default(60),
 });
 
 const setupEnv = () => {

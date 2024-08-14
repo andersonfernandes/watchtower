@@ -5,7 +5,6 @@ import { db } from "./db";
 import { env } from "./env";
 import { logger } from "./utils/logger";
 
-const MAX_BUFFER_SIZE = 120;
 const clients = new Map<string, WebSocket[]>();
 const cameras = new Map<string, WebSocket>();
 const buffers = new Map<string, RawData[]>();
@@ -81,7 +80,7 @@ export const initWebSocket = (server: Server) => {
       ws.on("message", (data) => {
         if (client === "camera") {
           const buffer = buffers.get(camera.id);
-          if (buffer.length >= MAX_BUFFER_SIZE) {
+          if (buffer.length >= env.WS_MAX_BUFFER_SIZE) {
             buffer.shift();
           }
 
@@ -141,5 +140,5 @@ export const initWebSocket = (server: Server) => {
         }
       }
     });
-  }, 1000 / 30);
+  }, 1000 / env.WS_FRAME_RATE);
 };

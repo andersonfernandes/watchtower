@@ -62,9 +62,9 @@ esp_err_t init_camera()
   config.pixel_format = PIXFORMAT_JPEG;
 
   // parameters for image quality and size
-  config.frame_size = FRAMESIZE_VGA; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
-  config.jpeg_quality = 25;          // 10-63 lower number means higher quality
-  config.fb_count = 2;
+  config.frame_size = FRAMESIZE_CIF; // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
+  config.jpeg_quality = 35;          // 10-63 lower number means higher quality
+  config.fb_count = 1;
 
   Serial.print("Connecting Camera: ");
   esp_err_t err = esp_camera_init(&config);
@@ -74,7 +74,8 @@ esp_err_t init_camera()
     return err;
   }
   sensor_t *s = esp_camera_sensor_get();
-  s->set_framesize(s, FRAMESIZE_VGA);
+  s->set_framesize(s, config.frame_size);
+
   Serial.println("OK");
 
   return ESP_OK;
