@@ -5,7 +5,7 @@ import { db } from "./db";
 import { env } from "./env";
 import { logger } from "./utils/logger";
 
-const MAX_BUFFER_SIZE = 60;
+const MAX_BUFFER_SIZE = 120;
 const clients = new Map<string, WebSocket[]>();
 const cameras = new Map<string, WebSocket>();
 const buffers = new Map<string, RawData[]>();
