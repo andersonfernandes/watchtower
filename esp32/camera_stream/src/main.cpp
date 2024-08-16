@@ -9,7 +9,7 @@
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 #include "driver/gpio.h"
-#include "config.h"
+#include <config.h>
 
 // configuration for AI Thinker Camera board
 #define PWDN_GPIO_NUM 32
